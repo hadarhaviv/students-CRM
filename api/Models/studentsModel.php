@@ -20,8 +20,8 @@ class studentsModel extends Model
                 $students[$currentID]["courses"] = array();
 
             }
-            if (isset($data[$i]->course_name)) {
-                $students[$currentID]["courses"][] = $data[$i]->course_name;
+            if (isset($data[$i]->course_id)) {
+                $students[$currentID]["courses"][] = $data[$i]->course_id;
             }
 
         }
