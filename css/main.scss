@@ -1,0 +1,72 @@
+$first-color: #367fa9;
+$second-color: #3c8dbc;
+$third-color: #00c0ef;
+$forth-color: #f0f0f0d5;
+$fifth-color: #fff7aa;
+
+#mainScreen{
+    margin-top: 10px;
+}
+
+#main_nav{
+    background-color: $second-color;
+}
+#mainContainer{
+    input{
+    line-height: 12px;
+    font-size: 12px;
+    }
+    h5{
+        line-height: 1.4;
+    }
+}
+.SC_Containers{ 
+
+    border-right-style: solid;
+    border-color: $forth-color;
+    span{
+
+        font-size: 1.5rem;
+    }
+
+
+}
+
+.card-image{
+    box-sizing: border-box;
+    height: 5rem;
+    width: 5rem;
+}
+
+.cardS{
+    padding: 10px;
+}
+
+.card_body{
+    p{
+        font-size: 0.8rem ;
+    }
+}
+
+.hvr-grow-shadow {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+  }
+  .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  .headlines{
+    font-family: 'Noto Sans', sans-serif;
+    border-bottom-style: solid;
+    border-color: $forth-color;
+  }
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Students Admin</title>
+</head>
+
+<body>
+    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/team-icon-27.png" width="35" height="35" class="d-inline-block align-top" alt="">
+            Student Admin
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">School</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Administration</a>
+                </li>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <div class="navbar-text" style="padding:10px;">hi, User </div>
+            <a href=""> logout</a>
+        </form>
+    </nav>
+    <div id="mainScreen" class="container-fluid">
+        <div class="row">
+            <div id="SC_Container" class="row col-6">
+                <div class="SC_Containers col-6" id="studentCol">
+                    <h2>Students</h2>
+                    <div class="" id="studentsContainer">
+                        <div name="cardTemplate" class="card" style="width: 18rem; display: none;">
+                            <div class="row">
+                                <div class="col-3"> <img src="images/student_icon.png" class="card-image" alt=""></div>
+                                <div class="col-6" class="card_body">
+                                    <h5 id="card-name">Hadar</h5>
+                                    <p id="cardP">054-2435592</p>
+                                </div>
+                                <div class="col-3" class="card_body">
+                                    <button style="position: absolute; bottom: 0">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="SC_Containers col-6" id="courseCol">
+                    <h2>Courses</h2>
+                    <div class="" id="coursesContainer"></div>
+                </div>
+            </div>
+            <div id="mainContainer" class="col-6">mainContainer</div>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+
+    <script src="js/controller.js"></script>
+
+    <script src="js/index.js"></script>
+    <script src="js/jq.js"></script>
+    <script src="js/service.js"></script>
+</body>
+
+</html>
