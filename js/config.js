@@ -4,8 +4,10 @@ var config = function () {
         baseUrl: "http://localhost/studentsAdmin/api/index.php?",
         studentsController: "students",
         coursesController: "courses",
+        adminsController: "admins",
         getStudents: "getStudents",
-        getCourses: "getCourses"
+        getCourses: "getCourses",
+        getAdmins: "getAdmins",
 
 
     }
@@ -15,19 +17,19 @@ var DOM = function () {
 
     return {
 
-        studentsContainer: document.getElementById("studentsContainer"),
-        coursesContainer: document.getElementById("coursesContainer"),
+        SC_Container: document.getElementById("SC_Container")
 
     }
 }();
 
 var router = {};
 router.home = function () {
-    getStudents();
-    getCourses();
+    getTemplate("mainView");
+
+
 }
-router.addProduct = function () {
-    getTemplate("addProduct");
+router.admin = function () {
+    getTemplate("adminView");
 }
 
 

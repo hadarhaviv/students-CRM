@@ -28,14 +28,49 @@ function getCoursesService(callback) {
     })
 }
 
+function getAdminsService(callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.adminsController + "&action=" + config.getAdmins,
+        method: "GET",
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
 
 
 function getTemplate(param) {
     $.ajax({
         method: "GET",
-        url: "http://localhost/myStore/templates/" + param + ".html",
+        url: "http://localhost/studentsAdmin/templates/" + param + ".html",
         success: function (response) {
-            DOM.main.innerHTML = response;
+            DOM.SC_Container.innerHTML = response;
+            for (let i = 0; i < DOM.SC_Container.childElementCount; i++) {
+                var currentChild = DOM.SC_Container.children[i];
+                switch (currentChild.id) {
+                    case "studentCol":
+                        DOM.studentsContainer = document.getElementById("studentsContainer");
+                        getStudents();
+                        break;
+                    case "courseCol":
+                        DOM.coursesContainer = document.getElementById("coursesContainer");
+                        getCourses();
+                        break;
+                    case "adminCol":
+                        DOM.adminContainer = document.getElementById("adminContainer");
+                        getAdmins();
+                        break;
+
+                }
+
+            }
+
         },
         error: function (error) {
             console.log(error)
