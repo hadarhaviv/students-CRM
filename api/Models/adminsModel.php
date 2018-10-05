@@ -33,15 +33,15 @@ class adminsModel extends Model
         return $stmt->affected_rows;
     }
 
+    public function delete_admin($id)
+    {
+        $q = str_replace("p1", $id, DELETE_ADMIN);
+        $data = $this->dbc->Prepare($q);
+        $data->execute();
+        return $data->affected_rows;
 
-    // public function delete_course($id)
-    // {
-    //     $q = str_replace("p1", $id, DELETE_COURSE);
-    //     $data = $this->dbc->Prepare($q);
-    //     $data->execute();
-    //     return $data->affected_rows;
+    }								 
 
-    // }
 
     public function edit_admin($aName, $fk_role, $phone, $email, $password, $userName, $id)
     {

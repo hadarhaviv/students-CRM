@@ -38,18 +38,19 @@ class adminsController
 
     }
 
-    // public function deleteCourse()
-    // {
+    public function deleteAdmin()
+    {
 
-    //     $data = $this->model->delete_course($_POST['id']);
-    //     if ($data != 0) {
-    //         $res = $this->model->get_courses();
-    //         echo json_encode($res);
-    //     } else {
-    //         http_response_code(404);
-    //     }
+        $data = $this->model->delete_admin($_POST['id']);
+        if ($data != 0) {
+            $res = $this->model->get_admins();
+            echo json_encode($res);
+        } else {
+            http_response_code(404);
+        }
 
-    // }
+    }
+
 
     public function editAdmin()
     {
