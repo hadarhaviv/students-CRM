@@ -21,6 +21,7 @@ var DOM = function () {
         SC_Container: document.getElementById("SC_Container"),
         form_Headline: document.getElementById("form_Headline"),
         registration_form: document.getElementById("registration_form"),
+        mainC_headline: document.getElementById("mainC_headline"),
         fullName: document.getElementById("full_name"),
         email: document.getElementById("email"),
         phone: document.getElementById("phone")

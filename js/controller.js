@@ -5,32 +5,27 @@ var adminsDic;
 
 //students
 
+var studentResCallback = function (res) {
+    studentsDic = res;
+    studentsContainer.innerHTML = "";
+    for (var id in studentsDic) {
+        studentsContainer.appendChild(displayCard(studentsDic[id], "student"));
+    }
+}
+
 function getStudents() {
-    getStudentsService(function (res) {
-        studentsDic = res;
-        studentsContainer.innerHTML = "";
-        for (var id in studentsDic) {
-            studentsContainer.appendChild(displayCard(studentsDic[id], "student"));
-        }
-
-    })
-
+    getStudentsService(studentResCallback);
 }
 
 function addStudent() {
+    mainC_headline.innerHTML = "New Student"
     if (DOM.registration_form.style.display === 'none') {
         DOM.registration_form.style.display = 'flex';
     }
 }
 
 function createStudent() {
-    createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, function (res) {
-        studentsDic = res;
-        studentsContainer.innerHTML = "";
-        for (var id in studentsDic) {
-            studentsContainer.appendChild(displayCard(studentsDic[id], "student"));
-        }
-    })
+    createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, studentResCallback)
 }
 
 function getCourses() {
@@ -52,6 +47,8 @@ function displayCard(entity, type) {
     card.querySelector("#card-name").innerHTML = entity.name;
     if (type == "student") {
         card.querySelector("#cardP").innerHTML = entity.phone;
+        card.querySelector(".card-image").src = "images/student_icon.png"
+
     }
     else {
         card.querySelector("#cardP").innerHTML = entity.description;
