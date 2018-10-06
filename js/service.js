@@ -13,6 +13,26 @@ function getStudentsService(callback) {
     })
 }
 
+function createStudentService(name, email, phone, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.addStudent,
+        method: "POST",
+        data: {
+            'name': name,
+            'email': email,
+            'phone': phone,
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
 function getCoursesService(callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.getCourses,

@@ -3,16 +3,34 @@ var studentsDic;
 var coursesDic;
 var adminsDic;
 
+//students
+
 function getStudents() {
     getStudentsService(function (res) {
         studentsDic = res;
+        studentsContainer.innerHTML = "";
         for (var id in studentsDic) {
-            var studentsContainer = document.getElementById("studentsContainer")
             studentsContainer.appendChild(displayCard(studentsDic[id], "student"));
         }
 
     })
 
+}
+
+function addStudent() {
+    if (DOM.registration_form.style.display === 'none') {
+        DOM.registration_form.style.display = 'flex';
+    }
+}
+
+function createStudent() {
+    createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, function (res) {
+        studentsDic = res;
+        studentsContainer.innerHTML = "";
+        for (var id in studentsDic) {
+            studentsContainer.appendChild(displayCard(studentsDic[id], "student"));
+        }
+    })
 }
 
 function getCourses() {
@@ -63,14 +81,4 @@ function getAdmins() {
 // }
 
 
-// function addProduct() {
-//     var pName = getElementById("pName");
-//     var pCategory = getElementById("pCategory");
-//     var pPrice = getElementById("pPrice");
-//     var pAmount = getElementById("pAmount");
-//     var pPic = getElementById("pPic");
-//     addProductService(pName.value, pCategory.value, pPrice.value, pAmount.value, pPic.value, function (res) {
-//         drawProducts();
-//     });
-// }
 

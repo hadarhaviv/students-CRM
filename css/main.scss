@@ -68,5 +68,17 @@ $fifth-color: #fff7aa;
     font-family: 'Noto Sans', sans-serif;
     border-bottom-style: solid;
     border-color: $forth-color;
+    min-height: 2.4rem;
   }
+
+#submit_button{
+    background-color: $second-color;
+    &:hover{
+       background-color: $first-color; 
+    }
+
+}
+
+
+
 

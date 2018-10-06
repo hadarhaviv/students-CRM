@@ -1,6 +1,5 @@
 1. actions authentications.
-2.admin control model and view
 3.upload image.
 4. attach course to student
-5. hash to password
 6. delete fk issue
+7. error handeling

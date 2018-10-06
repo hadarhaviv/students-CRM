@@ -66,5 +66,14 @@
   font-family: 'Noto Sans', sans-serif;
   border-bottom-style: solid;
   border-color: #f0f0f0d5;
+  min-height: 2.4rem;
+}
+
+#submit_button {
+  background-color: #3c8dbc;
+}
+
+#submit_button:hover {
+  background-color: #367fa9;
 }
 /*# sourceMappingURL=main.css.map */
