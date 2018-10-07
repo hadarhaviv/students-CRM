@@ -18,10 +18,15 @@ function getStudents() {
 }
 
 function addStudent() {
-    mainC_headline.innerHTML = "New Student"
-    if (DOM.registration_form.style.display === 'none') {
-        DOM.registration_form.style.display = 'flex';
-    }
+    mainC_headline.innerHTML = "New Student";
+    getFormTemplate("studentForm");
+
+}
+
+function addCourse() {
+    mainC_headline.innerHTML = "New Course";
+    getFormTemplate("CourseForm");
+
 }
 
 function createStudent() {

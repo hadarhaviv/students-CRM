@@ -98,6 +98,27 @@ function getTemplate(param) {
     })
 }
 
+function getFormTemplate(param) {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost/studentsAdmin/templates/" + param + ".html",
+        success: function (response) {
+            DOM.registration_form.innerHTML = response;
+            switch (param) {
+                case "studentForm":
+                    DOM.fullName = document.getElementById("full_name");
+                    DOM.email = document.getElementById("email");
+                    DOM.phone = document.getElementById("phone");
+                    break;
+            }
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
 function addProductService(callback) {
     $.ajax({
         method: "POST",
