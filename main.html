@@ -15,8 +15,7 @@
 <body>
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#" onclick="router.home()">
-            <img src="images/team-icon-27.png" width="35" height="35" class="d-inline-block align-top" alt=""> Student
-            Admin
+            <img src="images/team-icon-27.png" width="35" height="35" class="d-inline-block align-top" alt=""> Student Admin
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -32,12 +31,16 @@
     </nav>
     <div id="mainScreen" class="container-fluid">
         <div class="row">
-            <div id="SC_Container" class="row col-6">
+            <div id="SCA_Container" class="row col-6">
 
             </div>
-            <div id="mainContainer" class="col-6">
+            <div id="mainContainer" class="SC_Containers col-6">
                 <div class="row headlines m-3">
                     <h5 id="mainC_headline" class="col-9"></h5>
+                    <span id="editIcon" style="display: none" onclick="" class="">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <button id="deleteIcon" style="display: none" type="button" class="btn btn-danger">Delete</button>
                 </div>
                 <div id="registration_form" class="row">
                 </div>
@@ -48,8 +51,8 @@
                         <img src="images/student_icon.png" class="card-image" alt="">
                     </div>
                     <div class="col-8 card_body">
-                        <h6 id="card-name">Hadar</h6>
-                        <p id="cardP">054-2435592</p>
+                        <h6 id="card-name"></h6>
+                        <p id="cardP"></p>
                     </div>
                 </div>
             </div>

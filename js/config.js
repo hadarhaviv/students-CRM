@@ -1,12 +1,14 @@
 var config = function () {
 
     return {
-        baseUrl: "http://localhost/studentsAdmin/api/index.php?",
+        baseUrl: "http://localhost:8080/studentsAdmin/api/index.php?",
         studentsController: "students",
         coursesController: "courses",
         adminsController: "admins",
         getStudents: "getStudents",
+        deleteStudent: "deleteStudent",
         addStudent: "addStudent",
+        editStudent: "editStudent",
         getCourses: "getCourses",
         getAdmins: "getAdmins",
 
@@ -18,10 +20,11 @@ var DOM = function () {
 
     return {
 
-        SC_Container: document.getElementById("SC_Container"),
+        SCA_Container: document.getElementById("SCA_Container"),
         form_Headline: document.getElementById("form_Headline"),
         registration_form: document.getElementById("registration_form"),
         mainC_headline: document.getElementById("mainC_headline"),
+        editIcon: document.getElementById("editIcon")
 
 
 

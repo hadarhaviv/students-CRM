@@ -33,6 +33,45 @@ function createStudentService(name, email, phone, callback) {
     })
 }
 
+function editStudentService(id, name, email, phone, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.editStudent,
+        method: "POST",
+        data: {
+            'id': id,
+            'name': name,
+            'email': email,
+            'phone': phone,
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
+function deleteStudentService(id, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.deleteStudent,
+        method: "POST",
+        data: {
+            'id': id
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
 function getCoursesService(callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.getCourses,
@@ -68,11 +107,11 @@ function getAdminsService(callback) {
 function getTemplate(param) {
     $.ajax({
         method: "GET",
-        url: "http://localhost/studentsAdmin/templates/" + param + ".html",
+        url: "http://localhost:8080/studentsAdmin/templates/" + param + ".html",
         success: function (response) {
-            DOM.SC_Container.innerHTML = response;
-            for (let i = 0; i < DOM.SC_Container.childElementCount; i++) {
-                var currentChild = DOM.SC_Container.children[i];
+            DOM.SCA_Container.innerHTML = response;
+            for (let i = 0; i < DOM.SCA_Container.childElementCount; i++) {
+                var currentChild = DOM.SCA_Container.children[i];
                 switch (currentChild.id) {
                     case "studentCol":
                         DOM.studentsContainer = document.getElementById("studentsContainer");
@@ -98,10 +137,10 @@ function getTemplate(param) {
     })
 }
 
-function getFormTemplate(param) {
+function getFormTemplate(param, callback) {
     $.ajax({
         method: "GET",
-        url: "http://localhost/studentsAdmin/templates/" + param + ".html",
+        url: "http://localhost:8080/studentsAdmin/templates/" + param + ".html",
         success: function (response) {
             DOM.registration_form.innerHTML = response;
             switch (param) {
@@ -109,6 +148,9 @@ function getFormTemplate(param) {
                     DOM.fullName = document.getElementById("full_name");
                     DOM.email = document.getElementById("email");
                     DOM.phone = document.getElementById("phone");
+                    DOM.submitBTN = document.getElementById("submit_button");
+                    DOM.deleteIcon = document.getElementById("deleteIcon");
+                    callback();
                     break;
             }
 
