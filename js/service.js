@@ -107,7 +107,7 @@ function getAdminsService(callback) {
 function getTemplate(param) {
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/studentsAdmin/templates/" + param + ".html",
+        url: "http://localhost/studentsAdmin/templates/" + param + ".html",
         success: function (response) {
             DOM.SCA_Container.innerHTML = response;
             for (let i = 0; i < DOM.SCA_Container.childElementCount; i++) {
@@ -140,7 +140,7 @@ function getTemplate(param) {
 function getFormTemplate(param, callback) {
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/studentsAdmin/templates/" + param + ".html",
+        url: "http://localhost/studentsAdmin/templates/" + param + ".html",
         success: function (response) {
             DOM.registration_form.innerHTML = response;
             switch (param) {

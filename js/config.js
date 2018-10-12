@@ -1,7 +1,7 @@
 var config = function () {
 
     return {
-        baseUrl: "http://localhost:8080/studentsAdmin/api/index.php?",
+        baseUrl: "http://localhost/studentsAdmin/api/index.php?",
         studentsController: "students",
         coursesController: "courses",
         adminsController: "admins",

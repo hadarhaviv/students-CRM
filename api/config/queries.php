@@ -2,7 +2,7 @@
 
 // students
 
-define("GET_ALL_STUDENTS", "SELECT stu.id, stu.name, stu.phone, stu.email, stu.image, course.id as course_id from student as stu left join courses_students_lnk as lnk on stu.id = lnk.fk_students left join course as course on course.id = lnk.fk_courses");
+define("GET_ALL_STUDENTS", "SELECT stu.id, stu.name, stu.phone, stu.email, stu.image, course.id as course_id from student as stu left join courses_students_lnk as lnk on stu.id = lnk.fk_students left join course as course on course.id = lnk.fk_courses order by stu.id desc");
 
 
 define("ADD_USER", "INSERT INTO student (name, phone, email) VALUES (?, ?, ?);");
