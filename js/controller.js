@@ -24,11 +24,21 @@ function getStudents() {
     getStudentsService(studentResCallback);
 }
 
+function cloneElement(currentElement) {
+    var newElement = currentElement.cloneNode(true);
+    currentElement.parentNode.replaceChild(newElement, currentElement);
+    return newElement;
+}
+
 function showStudentDetails(event) {
+    if (DOM.deleteIcon) {
+        DOM.deleteIcon.style.display = "none"
+    }
     var currentID = event.currentTarget.id;
     getFormTemplate("studentForm", function () {
         mainC_headline.innerHTML = "Student Details";
         DOM.editIcon.style.display = "inline-block";
+        DOM.editIcon = cloneElement(DOM.editIcon);
         DOM.editIcon.addEventListener("click", function () {
             editStudent(currentID);
         })
@@ -56,6 +66,7 @@ function addStudent() {
 function editStudent(currentID) {
     DOM.editIcon.style.display = "none"
     DOM.deleteIcon.style.display = "inline-block"
+    DOM.deleteIcon = cloneElement(DOM.deleteIcon);
     DOM.deleteIcon.addEventListener("click", function () {
         deleteStudent(currentID);
     })
@@ -64,6 +75,7 @@ function editStudent(currentID) {
     DOM.phone.disabled = false;
     DOM.submitBTN.innerText = "Save"
     DOM.submitBTN.style.display = "inline-block";
+    DOM.submitBTN = cloneElement(DOM.submitBTN);
     DOM.submitBTN.addEventListener("click", function () {
         saveStudent(event, currentID);
     })
