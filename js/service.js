@@ -143,13 +143,19 @@ function getFormTemplate(param, callback) {
         url: "http://localhost/studentsAdmin/templates/" + param + ".html",
         success: function (response) {
             DOM.registration_form.innerHTML = response;
+            DOM.submitBTN = document.getElementById("submit_button");
+            DOM.deleteIcon = document.getElementById("deleteIcon");
             switch (param) {
                 case "studentForm":
                     DOM.fullName = document.getElementById("full_name");
                     DOM.email = document.getElementById("email");
                     DOM.phone = document.getElementById("phone");
-                    DOM.submitBTN = document.getElementById("submit_button");
-                    DOM.deleteIcon = document.getElementById("deleteIcon");
+
+                    callback();
+                    break;
+                case "courseForm":
+                    DOM.courseName = document.getElementById("course_name");
+                    DOM.description = document.getElementById("description");
                     callback();
                     break;
             }

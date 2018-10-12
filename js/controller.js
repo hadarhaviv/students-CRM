@@ -3,6 +3,12 @@ var studentsDic;
 var coursesDic;
 var adminsDic;
 
+function cloneElement(currentElement) {
+    var newElement = currentElement.cloneNode(true);
+    currentElement.parentNode.replaceChild(newElement, currentElement);
+    return newElement;
+}
+
 function clearInput() {
     var inputs = document.getElementsByClassName("form-group");
     for (let i = 0; i < inputs.length; i++) {
@@ -10,6 +16,27 @@ function clearInput() {
 
     }
 }
+
+function displayCard(entity, type) {
+    var card = document.getElementsByName("cardTemplate")[0].cloneNode(true);
+    card.id = entity.id;
+    card.style.display = "inline-block";
+    card.querySelector("#card-name").innerHTML = entity.name;
+    if (type == "student") {
+        card.querySelector("#cardP").innerHTML = entity.phone;
+        card.querySelector(".card-image").src = "images/student_icon.png"
+        card.addEventListener("click", showStudentDetails)
+
+    }
+    else {
+        card.querySelector("#cardP").innerHTML = entity.description;
+        card.querySelector(".card-image").src = "images/course-icon.png"
+        card.addEventListener("click", showCourseDetails)
+
+    }
+    return card;
+}
+
 //students
 
 var studentResCallback = function (res) {
@@ -24,11 +51,6 @@ function getStudents() {
     getStudentsService(studentResCallback);
 }
 
-function cloneElement(currentElement) {
-    var newElement = currentElement.cloneNode(true);
-    currentElement.parentNode.replaceChild(newElement, currentElement);
-    return newElement;
-}
 
 function showStudentDetails(event) {
     if (DOM.deleteIcon) {
@@ -99,8 +121,7 @@ function saveStudent(event, currentID) {
     clearInput();
 }
 
-
-
+//courses
 
 function addCourse() {
     mainC_headline.innerHTML = "New Course";
@@ -109,36 +130,40 @@ function addCourse() {
 }
 
 function getCourses() {
-    getCoursesService(function (res) {
-        coursesDic = res;
-        for (var id in coursesDic) {
-            DOM.coursesContainer.appendChild(displayCard(coursesDic[id], "courses"));
-        }
-
-    })
+    getCoursesService(coursesResCallback);
 
 }
 
-
-
-function displayCard(entity, type) {
-    var card = document.getElementsByName("cardTemplate")[0].cloneNode(true);
-    card.id = entity.id;
-    card.style.display = "inline-block";
-    card.querySelector("#card-name").innerHTML = entity.name;
-    if (type == "student") {
-        card.querySelector("#cardP").innerHTML = entity.phone;
-        card.querySelector(".card-image").src = "images/student_icon.png"
-        card.addEventListener("click", showStudentDetails)
-
+var coursesResCallback = function (res) {
+    coursesDic = res;
+    coursesContainer.innerHTML = "";
+    for (var id in coursesDic) {
+        coursesContainer.appendChild(displayCard(coursesDic[id], "course"));
     }
-    else {
-        card.querySelector("#cardP").innerHTML = entity.description;
-        card.querySelector(".card-image").src = "images/course-icon.png"
-
-    }
-    return card;
 }
+
+function showCourseDetails(event) {
+    if (DOM.deleteIcon) {
+        DOM.deleteIcon.style.display = "none"
+    }
+    var currentID = event.currentTarget.id;
+    getFormTemplate("courseForm", function () {
+        mainC_headline.innerHTML = "Course Details";
+        DOM.editIcon.style.display = "inline-block";
+        DOM.editIcon = cloneElement(DOM.editIcon);
+        // DOM.editIcon.addEventListener("click", function () {
+        //     editCourse(currentID);
+        // })
+        DOM.courseName.value = coursesDic[currentID].name;
+        DOM.courseName.disabled = true;
+        DOM.description.value = coursesDic[currentID].description;
+        DOM.description.disabled = true;
+
+
+    });
+
+}
+
 
 
 function getAdmins() {
