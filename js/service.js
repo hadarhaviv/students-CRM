@@ -1,3 +1,5 @@
+//students
+
 function getStudentsService(callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.getStudents,
@@ -72,6 +74,8 @@ function deleteStudentService(id, callback) {
     })
 }
 
+//courses
+
 function getCoursesService(callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.getCourses,
@@ -86,6 +90,67 @@ function getCoursesService(callback) {
 
     })
 }
+
+
+function deleteCourseService(id, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.deleteCourse,
+        method: "POST",
+        data: {
+            'id': id
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
+function editCourseService(id, courseName, description, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.editCourse,
+        method: "POST",
+        data: {
+            'id': id,
+            'name': courseName,
+            'desc': description
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
+function createCourseService(courseName, description, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.addCourse,
+        method: "POST",
+        data: {
+            'name': courseName,
+            'description': description,
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
+
+//admins
 
 function getAdminsService(callback) {
     $.ajax({
@@ -103,7 +168,7 @@ function getAdminsService(callback) {
 }
 
 
-
+//general services
 function getTemplate(param) {
     $.ajax({
         method: "GET",
@@ -167,41 +232,5 @@ function getFormTemplate(param, callback) {
     })
 }
 
-function addProductService(callback) {
-    $.ajax({
-        method: "POST",
-        url: config.dbServiceURL + config.postComment,
-        data: {
-            'name': name,
-            'category_id': category_id,
-            'price': price,
-            'amount': amount,
-            'pic': pic,
-        },
-        success: function (response) {
-            console.log(JSON.parse(response));
 
-        },
-        error: function (error) {
-            console.log(error)
-        }
-    })
-}
-
-function deleteProductService(productID, callback) {
-    $.ajax({
-        method: "POST",
-        url: config.baseUrl + "controller=" + config.productController + "&action=" + config.deleteProduct,
-        data: {
-            'productId': productID,
-        },
-        success: function (response) {
-            callback(JSON.parse(response));
-
-        },
-        error: function (error) {
-            console.log(error)
-        }
-    })
-}
 

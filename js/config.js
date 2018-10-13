@@ -10,6 +10,9 @@ var config = function () {
         addStudent: "addStudent",
         editStudent: "editStudent",
         getCourses: "getCourses",
+        deleteCourse: "deleteCourse",
+        editCourse: "editCourse",
+        addCourse: "addCourse",
         getAdmins: "getAdmins",
 
 
