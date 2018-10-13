@@ -15,7 +15,9 @@ class adminsModel extends Model
             $admins[$currentID]["name"] = $data[$i]->name;
             $admins[$currentID]["phone"] = $data[$i]->phone;
             $admins[$currentID]["email"] = $data[$i]->email;
-            $admins[$currentID]["role_name"] = $data[$i]->role_name;
+            $admins[$currentID]["roleID"] = $data[$i]->fk_role;
+            $admins[$currentID]["userName"] = $data[$i]->user_name;
+            $admins[$currentID]["password"] = $data[$i]->password;
         }
         if (count($admins) > 0) {
             return $admins;
@@ -40,14 +42,14 @@ class adminsModel extends Model
         $data->execute();
         return $data->affected_rows;
 
-    }								 
+    }
 
 
-    public function edit_admin($aName, $fk_role, $phone, $email, $password, $userName, $id)
+    public function edit_admin($aName, $fk_role, $phone, $email, $id)
     {
         $q = EDIT_ADMIN;
         $data = $this->dbc->Prepare($q);
-        $data->bind_param('sissssi', $aName, $fk_role, $phone, $email, $password, $userName, $id);
+        $data->bind_param('sissi', $aName, $fk_role, $phone, $email, $id);
         $data->execute();
         return $data->affected_rows;
 

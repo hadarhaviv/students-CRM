@@ -167,6 +167,70 @@ function getAdminsService(callback) {
     })
 }
 
+function deleteAdminService(id, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.adminsController + "&action=" + config.deleteAdmin,
+        method: "POST",
+        data: {
+            'id': id
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
+function editAdminService(id, aName, email, phone, role, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.adminsController + "&action=" + config.editAdmin,
+        method: "POST",
+        data: {
+            'id': id,
+            'name': aName,
+            'phone': phone,
+            'email': email,
+            'role': role
+
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
+function createAdminService(aName, email, phone, userName, password, role, callback) {
+    $.ajax({
+        url: config.baseUrl + "controller=" + config.adminsController + "&action=" + config.addAdmin,
+        method: "POST",
+        data: {
+            'name': aName,
+            'email': email,
+            'phone': phone,
+            'userName': userName,
+            'password': password,
+            'role': role
+        },
+        success: function (res) {
+            callback(JSON.parse(res));
+
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
+
 
 //general services
 function getTemplate(param) {
@@ -221,6 +285,15 @@ function getFormTemplate(param, callback) {
                 case "courseForm":
                     DOM.courseName = document.getElementById("course_name");
                     DOM.description = document.getElementById("description");
+                    callback();
+                    break;
+                case "adminForm":
+                    DOM.fullName = document.getElementById("full_name");
+                    DOM.email = document.getElementById("email");
+                    DOM.phone = document.getElementById("phone");
+                    DOM.userName = document.getElementById("userName");
+                    DOM.password = document.getElementById("password");
+                    DOM.role = document.getElementById("role");
                     callback();
                     break;
             }

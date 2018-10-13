@@ -14,7 +14,9 @@ var config = function () {
         editCourse: "editCourse",
         addCourse: "addCourse",
         getAdmins: "getAdmins",
-
+        editAdmin: "editAdmin",
+        addAdmin: "addAdmin",
+        deleteAdmin: "deleteAdmin"
 
     }
 }();

@@ -28,11 +28,15 @@ function displayCard(entity, type) {
         card.addEventListener("click", showStudentDetails)
 
     }
-    else {
+    if (type == "course") {
         card.querySelector("#cardP").innerHTML = entity.description;
         card.querySelector(".card-image").src = "images/course-icon.png"
         card.addEventListener("click", showCourseDetails)
-
+    }
+    if (type == "admin") {
+        card.querySelector("#cardP").innerHTML = entity.phone;
+        card.querySelector(".card-image").src = "images/course-icon.png"
+        card.addEventListener("click", showAdminDetails)
     }
     return card;
 }
@@ -202,18 +206,6 @@ function deleteCourse(currentID) {
 
 }
 
-
-
-function getAdmins() {
-    getAdminsService(function (res) {
-        adminsDic = res;
-        for (var id in adminsDic) {
-            DOM.adminContainer.appendChild(displayCard(adminsDic[id], "student"));
-        }
-
-    })
-}
-
 function editCourse(currentID) {
     DOM.editIcon.style.display = "none"
     DOM.deleteIcon.style.display = "inline-block"
@@ -232,6 +224,104 @@ function editCourse(currentID) {
 
 }
 
+//admins
+
+var adminsResCallback = function (res) {
+    adminsDic = res;
+    adminContainer.innerHTML = "";
+    for (var id in adminsDic) {
+        adminContainer.appendChild(displayCard(adminsDic[id], "admin"));
+    }
+}
+
+function getAdmins() {
+    getAdminsService(adminsResCallback);
+
+}
+
+
+function addAdmin() {
+    getFormTemplate("adminForm", function () {
+        mainC_headline.innerHTML = "New Admin";
+        DOM.submitBTN.style.display = "inline-block";
+        DOM.submitBTN.addEventListener("click", saveAdmin)
+    });
+    clearInput();
+
+}
+
+
+function showAdminDetails(event) {
+    if (DOM.deleteIcon) {
+        DOM.deleteIcon.style.display = "none"
+    }
+    var currentID = event.currentTarget.id;
+    getFormTemplate("adminForm", function () {
+        mainC_headline.innerHTML = "Admin Details";
+        DOM.editIcon.style.display = "inline-block";
+        DOM.editIcon = cloneElement(DOM.editIcon);
+        DOM.editIcon.addEventListener("click", function () {
+            editAdmin(currentID);
+        })
+        DOM.fullName.value = adminsDic[currentID].name;
+        DOM.fullName.disabled = true;
+        DOM.email.value = adminsDic[currentID].email;
+        DOM.email.disabled = true;
+        DOM.phone.value = adminsDic[currentID].phone;
+        DOM.phone.disabled = true;
+        DOM.userName.value = adminsDic[currentID].userName;
+        DOM.userName.disabled = true;
+        DOM.password.value = adminsDic[currentID].password;
+        DOM.password.disabled = true;
+        DOM.role.value = adminsDic[currentID].roleID;
+        DOM.role.disabled = true;
+
+    });
+
+}
+
+function editAdmin(currentID) {
+    DOM.editIcon.style.display = "none"
+    DOM.deleteIcon.style.display = "inline-block"
+    DOM.deleteIcon = cloneElement(DOM.deleteIcon);
+    DOM.deleteIcon.addEventListener("click", function () {
+        deleteAdmin(currentID);
+    })
+    DOM.fullName.disabled = false;
+    DOM.email.disabled = false;
+    DOM.phone.disabled = false;
+    DOM.userName.disabled = false;
+    DOM.password.disabled = false;
+    DOM.role.disabled = false;
+    DOM.submitBTN.innerText = "Save"
+    DOM.submitBTN.style.display = "inline-block";
+    DOM.submitBTN = cloneElement(DOM.submitBTN);
+    DOM.submitBTN.addEventListener("click", function () {
+        saveAdmin(event, currentID);
+    })
+
+}
+
+function saveAdmin(event, currentID) {
+    if (currentID) {
+        editAdminService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.role.value, adminsResCallback)
+    }
+    else {
+        createAdminService(DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.userName.value, DOM.password.value, DOM.role.value, adminsResCallback);
+    }
+    DOM.registration_form.innerHTML = "";
+    DOM.deleteIcon.style.display = "none"
+    mainC_headline.innerHTM = "";
+    // clearInput();
+}
+
+
+function deleteAdmin(currentID) {
+    deleteAdminService(currentID, adminsResCallback);
+    DOM.registration_form.innerHTML = "";
+    DOM.deleteIcon.style.display = "none"
+
+}
 
 
 

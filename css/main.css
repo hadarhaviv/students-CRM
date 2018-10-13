@@ -11,6 +11,11 @@
   font-size: 12px;
 }
 
+#mainContainer .custom-select {
+  line-height: 12px;
+  font-size: 12px;
+}
+
 #mainContainer h5 {
   line-height: 1.4;
 }
