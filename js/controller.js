@@ -3,6 +3,15 @@ var studentsDic;
 var coursesDic;
 var adminsDic;
 
+function randomString() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + s4() + s4();
+}
+
 function cloneElement(currentElement) {
     var newElement = currentElement.cloneNode(true);
     currentElement.parentNode.replaceChild(newElement, currentElement);
@@ -179,7 +188,13 @@ function showCourseDetails(event) {
         DOM.description.value = coursesDic[currentID].description;
         DOM.description.disabled = true;
         DOM.studentsSelect.disabled = true;
+
+        if (coursesDic[currentID].image) {
+            DOM.image.src = "uploads/" + coursesDic[currentID].image;
+        }
+
         createStudentsSelectDOM(currentID);
+        $('#students-select').select2();
 
     });
 
@@ -192,6 +207,9 @@ function addCourse() {
         DOM.submitBTN.style.display = "inline-block";
         DOM.submitBTN.addEventListener("click", saveCourse)
         createStudentsSelectDOM(null);
+        $('#students-select').select2();
+
+
     });
     clearInput();
 
@@ -205,12 +223,22 @@ function saveCourse(event, currentID) {
         studentsList.push(DOM.studentsSelect.selectedOptions[i].dataset.value);
     }
 
+    // if image is being uploaded
+    var filename = "";
+    if (document.getElementById('fileToUpload').value) {
+        filename = randomString() + ".jpg";
+        uploadImage(filename);
+    }
+
+
     if (currentID) {
-        editCourseService(currentID, DOM.courseName.value, DOM.description.value, studentsList, coursesResCallback)
+        editCourseService(currentID, DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
     }
     else {
-        createCourseService(DOM.courseName.value, DOM.description.value, studentsList, coursesResCallback);
+        createCourseService(DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
     }
+
+
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
     mainC_headline.innerHTML = "";

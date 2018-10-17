@@ -110,7 +110,7 @@ function deleteCourseService(id, callback) {
     })
 }
 
-function editCourseService(id, courseName, description, studentsList, callback) {
+function editCourseService(id, courseName, description, studentsList, imageFileName, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.editCourse,
         method: "POST",
@@ -118,7 +118,8 @@ function editCourseService(id, courseName, description, studentsList, callback) 
             'id': id,
             'name': courseName,
             'desc': description,
-            'studentsList': studentsList
+            'studentsList': studentsList,
+            'imageFileName': imageFileName
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -131,14 +132,15 @@ function editCourseService(id, courseName, description, studentsList, callback) 
     })
 }
 
-function createCourseService(courseName, description, studentsList, callback) {
+function createCourseService(courseName, description, studentsList, imageFileName, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.addCourse,
         method: "POST",
         data: {
             'name': courseName,
             'description': description,
-            'studentsList': studentsList
+            'studentsList': studentsList,
+            'imageFileName': imageFileName
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -235,6 +237,21 @@ function createAdminService(aName, email, phone, userName, password, role, callb
 
 
 //general services
+function uploadImage(filename) {
+    DOM.imageUploadFileName.value = filename;
+
+    $.ajax({
+        url: 'http://localhost/studentsAdmin/api/index.php?controller=utils&action=uploadImage',
+        type: 'POST',
+        data: new FormData($('#IMGForm')[0]),
+        processData: false,
+        contentType: false,
+        success: function () {
+            console.log("image was uploaded.");
+        }
+    });
+}
+
 function getTemplate(param) {
     $.ajax({
         method: "GET",
@@ -284,12 +301,16 @@ function getFormTemplate(param, callback) {
 
                     callback();
                     break;
+
                 case "courseForm":
                     DOM.courseName = document.getElementById("course_name");
                     DOM.description = document.getElementById("description");
                     DOM.studentsSelect = document.getElementById("students-select");
+                    DOM.imageUploadFileName = document.getElementById("imageUploadFileName");
+                    DOM.image = document.getElementById("image");
                     callback();
                     break;
+
                 case "adminForm":
                     DOM.fullName = document.getElementById("full_name");
                     DOM.email = document.getElementById("email");

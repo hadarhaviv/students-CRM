@@ -32,10 +32,10 @@ class coursesModel extends Model
     }
 
 
-    public function add_course($cName, $description)
+    public function add_course($cName, $description, $imageFilename)
     {
         $stmt = $this->dbc->Prepare(ADD_COURSE);
-        $stmt->bind_param("ss", $cName, $description);
+        $stmt->bind_param("sss", $cName, $description, $imageFilename);
         $stmt->execute();
         return $stmt->insert_id;
     }
@@ -50,11 +50,11 @@ class coursesModel extends Model
 
     }
 
-    public function edit_course($id, $cName, $description)
+    public function edit_course($id, $cName, $description, $imageFilename)
     {
         $q = EDIT_COURSE;
         $data = $this->dbc->Prepare($q);
-        $data->bind_param('ssi', $cName, $description, $id);
+        $data->bind_param('sssi', $cName, $description, $imageFilename, $id);
         $data->execute();
         return $data->affected_rows;
 
