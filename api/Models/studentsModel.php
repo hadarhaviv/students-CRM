@@ -61,5 +61,16 @@ class studentsModel extends Model
 
     }
 
+
+    public function lnk_student_course($fk_student, $fk_course)
+    {
+        $q = STUDENT_LNK_COURSE;
+        $data = $this->dbc->Prepare($q);
+        $data->bind_param('ii', $fk_student, $fk_course);
+        $data->execute();
+        return $data->affected_rows;
+
+    }
+
 }
 ?>

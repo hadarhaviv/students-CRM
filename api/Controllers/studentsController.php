@@ -63,6 +63,25 @@ class studentsController
 
     }
 
+    public function LinkStudentCourse()
+    {
+
+        $updateValues = 0;
+        $courseArray = ($_POST["fk_course"]);
+        for ($i=0; $i < count($courseArray); $i++) { 
+            $data = $this->model->lnk_student_course($_POST['fk_student'], $_POST['fk_course'][$i]);    
+            if ($data != 0) {
+                echo $data . "value was updated ";
+            }
+            else{
+                http_response_code(404);
+                break;
+            }
+            
+        }
+
+    }
+
 }
 
 

@@ -20,8 +20,8 @@ class coursesModel extends Model
                 $courses[$currentID]["students"] = array();
 
             }
-            if (isset($data[$i]->student_name)) {
-                $courses[$currentID]["students"][] = $data[$i]->student_name;
+            if (isset($data[$i]->student_id)) {
+                $courses[$currentID]["students"][] = $data[$i]->student_id;
             }
         }
         if (count($courses) > 0) {
@@ -37,7 +37,7 @@ class coursesModel extends Model
         $stmt = $this->dbc->Prepare(ADD_COURSE);
         $stmt->bind_param("ss", $cName, $description);
         $stmt->execute();
-        return $stmt->affected_rows;
+        return $stmt->insert_id;
     }
 
 
@@ -60,5 +60,24 @@ class coursesModel extends Model
 
     }
 
+    public function lnk_student_course($fk_student, $fk_course)
+    {
+        $q = STUDENT_LNK_COURSE;
+        $data = $this->dbc->Prepare($q);
+        $data->bind_param('ii', $fk_student, $fk_course);
+        $data->execute();
+        return $data->affected_rows;
+
+    }
+
+
+    public function delete_students_lnk($fk_course)
+    {
+        $q = DELETE_LNK_BY_COURSE;
+        $data = $this->dbc->Prepare($q);
+        $data->bind_param('i', $fk_course);
+        $data->execute();
+        return $data->affected_rows;
+    }
 }
 ?>

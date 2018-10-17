@@ -112,6 +112,7 @@ function deleteStudent(currentID) {
     deleteStudentService(currentID, studentResCallback);
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
+    mainC_headline.innerHTML = "";
 
 }
 
@@ -124,21 +125,12 @@ function saveStudent(event, currentID) {
     }
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
-    mainC_headline.innerHTM = "";
+    mainC_headline.innerHTML = "";
     // clearInput();
 }
 
 //courses
 
-function addCourse() {
-    getFormTemplate("studentForm", function () {
-        mainC_headline.innerHTML = "New Course";
-        DOM.submitBTN.style.display = "inline-block";
-        DOM.submitBTN.addEventListener("click", saveCourse)
-    });
-    clearInput();
-
-}
 
 function getCourses() {
     getCoursesService(coursesResCallback);
@@ -150,6 +142,23 @@ var coursesResCallback = function (res) {
     coursesContainer.innerHTML = "";
     for (var id in coursesDic) {
         coursesContainer.appendChild(displayCard(coursesDic[id], "course"));
+    }
+}
+
+function createStudentsSelectDOM(currentID) {
+    for (let key in studentsDic) {
+
+        var option = document.createElement("option");
+        option.dataset.value = key;
+        option.innerHTML = studentsDic[key]["name"];
+        if (currentID) {
+            if (coursesDic[currentID]["students"].includes(key)) {
+                option.selected = true;
+            }
+        }
+
+        DOM.studentsSelect.appendChild(option);
+
     }
 }
 
@@ -169,9 +178,11 @@ function showCourseDetails(event) {
         DOM.courseName.disabled = true;
         DOM.description.value = coursesDic[currentID].description;
         DOM.description.disabled = true;
-
+        DOM.studentsSelect.disabled = true;
+        createStudentsSelectDOM(currentID);
 
     });
+
 
 }
 
@@ -180,22 +191,29 @@ function addCourse() {
         mainC_headline.innerHTML = "New Course";
         DOM.submitBTN.style.display = "inline-block";
         DOM.submitBTN.addEventListener("click", saveCourse)
+        createStudentsSelectDOM(null);
     });
     clearInput();
 
 }
 
 function saveCourse(event, currentID) {
+
+    let studentsList = [];
+
+    for (let i = 0; i < DOM.studentsSelect.selectedOptions.length; i++) {
+        studentsList.push(DOM.studentsSelect.selectedOptions[i].dataset.value);
+    }
+
     if (currentID) {
-        editCourseService(currentID, DOM.courseName.value, DOM.description.value, coursesResCallback)
+        editCourseService(currentID, DOM.courseName.value, DOM.description.value, studentsList, coursesResCallback)
     }
     else {
-        createCourseService(DOM.courseName.value, DOM.description.value, coursesResCallback);
+        createCourseService(DOM.courseName.value, DOM.description.value, studentsList, coursesResCallback);
     }
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
-    mainC_headline.innerHTM = "";
-    // clearInput();
+    mainC_headline.innerHTML = "";
 }
 
 
@@ -203,6 +221,7 @@ function deleteCourse(currentID) {
     deleteCourseService(currentID, coursesResCallback);
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
+    mainC_headline.innerHTML = "";
 
 }
 
@@ -213,6 +232,7 @@ function editCourse(currentID) {
     DOM.deleteIcon.addEventListener("click", function () {
         deleteCourse(currentID);
     })
+    DOM.studentsSelect.disabled = false;
     DOM.courseName.disabled = false;
     DOM.description.disabled = false;
     DOM.submitBTN.innerText = "Save"
@@ -311,7 +331,7 @@ function saveAdmin(event, currentID) {
     }
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
-    mainC_headline.innerHTM = "";
+    mainC_headline.innerHTML = "";
     // clearInput();
 }
 

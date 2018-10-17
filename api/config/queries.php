@@ -14,8 +14,13 @@ define("DELETE_STUDENT", "DELETE FROM student WHERE (id = p1);");
 define("EDIT_STUDENT", "UPDATE student SET name = ?, phone = ?, email = ? WHERE (id = ?);");
 
 
+define("STUDENT_LNK_COURSE", "INSERT INTO courses_students_lnk (fk_students, fk_courses) VALUES (?, ?);");
+
+
+
+
 // courses
-define("GET_ALL_COURSES", "SELECT course.id, course.name, course.description, course.image, stu.name as student_name FROM course as course left join courses_students_lnk as lnk on course.id = lnk.fk_courses left join student as stu on stu.id = lnk.fk_students");
+define("GET_ALL_COURSES", "SELECT course.id, course.name, course.description, course.image, stu.id as student_id FROM course as course left join courses_students_lnk as lnk on course.id = lnk.fk_courses left join student as stu on stu.id = lnk.fk_students");
 
 
 define("ADD_COURSE", "INSERT INTO COURSE (name, description) VALUES (?, ?);");
@@ -25,6 +30,8 @@ define("DELETE_COURSE", "DELETE FROM COURSE WHERE (id = p1);");
 
 
 define("EDIT_COURSE", "UPDATE course SET name = ?, description = ? WHERE (id = ?);");
+
+define("DELETE_LNK_BY_COURSE", "DELETE FROM courses_students_lnk WHERE fk_courses = ?");
 
 
 // login

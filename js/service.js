@@ -110,14 +110,15 @@ function deleteCourseService(id, callback) {
     })
 }
 
-function editCourseService(id, courseName, description, callback) {
+function editCourseService(id, courseName, description, studentsList, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.editCourse,
         method: "POST",
         data: {
             'id': id,
             'name': courseName,
-            'desc': description
+            'desc': description,
+            'studentsList': studentsList
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -130,13 +131,14 @@ function editCourseService(id, courseName, description, callback) {
     })
 }
 
-function createCourseService(courseName, description, callback) {
+function createCourseService(courseName, description, studentsList, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.coursesController + "&action=" + config.addCourse,
         method: "POST",
         data: {
             'name': courseName,
             'description': description,
+            'studentsList': studentsList
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -285,6 +287,7 @@ function getFormTemplate(param, callback) {
                 case "courseForm":
                     DOM.courseName = document.getElementById("course_name");
                     DOM.description = document.getElementById("description");
+                    DOM.studentsSelect = document.getElementById("students-select");
                     callback();
                     break;
                 case "adminForm":
