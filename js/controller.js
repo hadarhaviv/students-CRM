@@ -85,6 +85,9 @@ function showStudentDetails(event) {
         DOM.phone.disabled = true;
         DOM.coursesSelect.disabled = true;
         createCoursesSelectDOM(currentID);
+        if (studentsDic[currentID].image) {
+            DOM.image.src = "uploads/" + studentsDic[currentID].image;
+        }
         $('#courses-select').select2();
 
     });
@@ -139,11 +142,17 @@ function saveStudent(event, currentID) {
         coursesList.push(DOM.coursesSelect.selectedOptions[i].dataset.value);
     }
 
+    var filename = "";
+    if (document.getElementById('fileToUpload').value) {
+        filename = randomString() + ".jpg";
+        uploadImage(filename);
+    }
+
     if (currentID) {
-        editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, studentResCallback)
+        editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback)
     }
     else {
-        createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, studentResCallback);
+        createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback);
     }
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"

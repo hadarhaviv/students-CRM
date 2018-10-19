@@ -15,7 +15,7 @@ function getStudentsService(callback) {
     })
 }
 
-function createStudentService(name, email, phone, coursesList, callback) {
+function createStudentService(name, email, phone, coursesList, imageFileName, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.addStudent,
         method: "POST",
@@ -23,7 +23,8 @@ function createStudentService(name, email, phone, coursesList, callback) {
             'name': name,
             'email': email,
             'phone': phone,
-            'coursesList': coursesList
+            'coursesList': coursesList,
+            'imageFileName': imageFileName
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -36,7 +37,7 @@ function createStudentService(name, email, phone, coursesList, callback) {
     })
 }
 
-function editStudentService(id, name, email, phone, coursesList, callback) {
+function editStudentService(id, name, email, phone, coursesList, imageFileName, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.editStudent,
         method: "POST",
@@ -45,7 +46,8 @@ function editStudentService(id, name, email, phone, coursesList, callback) {
             'name': name,
             'email': email,
             'phone': phone,
-            'coursesList': coursesList
+            'coursesList': coursesList,
+            'imageFileName': imageFileName
         },
         success: function (res) {
             callback(JSON.parse(res));

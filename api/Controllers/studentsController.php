@@ -28,7 +28,7 @@ class studentsController
     public function addStudent()
     {
 
-        $insertId = $this->model->add_student($_POST['name'], $_POST['phone'], $_POST['email']);
+        $insertId = $this->model->add_student($_POST['name'], $_POST['phone'], $_POST['email'], $_POST['imageFileName']);
         if (isset($_POST['coursesList'])) {
             foreach ($_POST['coursesList'] as $course) {
                 $data = $this->model->lnk_student_course($insertId, $course);
@@ -61,7 +61,7 @@ class studentsController
     {
 
         $affectedRows = 0;
-        $data = $this->model->edit_student($_POST['id'], $_POST['name'], $_POST['phone'], $_POST['email']);
+        $data = $this->model->edit_student($_POST['id'], $_POST['name'], $_POST['phone'], $_POST['email'], $_POST['imageFileName']);
         $affectedRows += $data;
 
         $data = $this->model->delete_courses_lnk($_POST['id']);

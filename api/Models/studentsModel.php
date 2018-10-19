@@ -32,10 +32,10 @@ class studentsModel extends Model
         }
     }
 
-    public function add_student($sName, $phone, $email)
+    public function add_student($sName, $phone, $email, $imageFilename)
     {
         $stmt = $this->dbc->Prepare(ADD_USER);
-        $stmt->bind_param("sss", $sName, $phone, $email);
+        $stmt->bind_param("ssss", $sName, $phone, $email, $imageFilename);
         $stmt->execute();
         return $stmt->insert_id;
     }
@@ -51,11 +51,11 @@ class studentsModel extends Model
     }
 
 
-    public function edit_student($id, $sName, $phone, $email)
+    public function edit_student($id, $sName, $phone, $email, $imageFilename)
     {
         $q = EDIT_STUDENT;
         $data = $this->dbc->Prepare($q);
-        $data->bind_param('sssi', $sName, $phone, $email, $id);
+        $data->bind_param('ssssi', $sName, $phone, $email, $imageFilename, $id);
         $data->execute();
         return $data->affected_rows;
 

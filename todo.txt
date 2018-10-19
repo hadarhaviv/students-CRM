@@ -1,8 +1,7 @@
 1. actions authentications.
-3.upload image.
 6. delete fk issue
 7. error handeling
 8.forms validation
 9. static nav bar
 10. fix api id - should be int and not str
-11. add & edit courses list
+12. change URLs in services. (add to config)
