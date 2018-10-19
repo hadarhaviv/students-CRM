@@ -37,7 +37,7 @@ class studentsModel extends Model
         $stmt = $this->dbc->Prepare(ADD_USER);
         $stmt->bind_param("sss", $sName, $phone, $email);
         $stmt->execute();
-        return $stmt->affected_rows;
+        return $stmt->insert_id;
     }
 
 
@@ -72,5 +72,13 @@ class studentsModel extends Model
 
     }
 
+    public function delete_courses_lnk($fk_student)
+    {
+        $q = DELETE_LNK_BY_STUDENT;
+        $data = $this->dbc->Prepare($q);
+        $data->bind_param('i', $fk_student);
+        $data->execute();
+        return $data->affected_rows;
+    }
 }
 ?>

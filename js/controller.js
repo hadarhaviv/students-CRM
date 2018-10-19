@@ -83,6 +83,9 @@ function showStudentDetails(event) {
         DOM.email.disabled = true;
         DOM.phone.value = studentsDic[currentID].phone;
         DOM.phone.disabled = true;
+        DOM.coursesSelect.disabled = true;
+        createCoursesSelectDOM(currentID);
+        $('#courses-select').select2();
 
     });
 
@@ -93,6 +96,8 @@ function addStudent() {
         mainC_headline.innerHTML = "New Student";
         DOM.submitBTN.style.display = "inline-block";
         DOM.submitBTN.addEventListener("click", saveStudent)
+        createCoursesSelectDOM(null);
+        $('#courses-select').select2();
     });
     clearInput();
 
@@ -108,6 +113,7 @@ function editStudent(currentID) {
     DOM.fullName.disabled = false;
     DOM.email.disabled = false;
     DOM.phone.disabled = false;
+    DOM.coursesSelect.disabled = false;
     DOM.submitBTN.innerText = "Save"
     DOM.submitBTN.style.display = "inline-block";
     DOM.submitBTN = cloneElement(DOM.submitBTN);
@@ -126,16 +132,40 @@ function deleteStudent(currentID) {
 }
 
 function saveStudent(event, currentID) {
+
+    let coursesList = [];
+
+    for (let i = 0; i < DOM.coursesSelect.selectedOptions.length; i++) {
+        coursesList.push(DOM.coursesSelect.selectedOptions[i].dataset.value);
+    }
+
     if (currentID) {
-        editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, studentResCallback)
+        editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, studentResCallback)
     }
     else {
-        createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, studentResCallback);
+        createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, studentResCallback);
     }
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
     mainC_headline.innerHTML = "";
     // clearInput();
+}
+
+function createCoursesSelectDOM(currentID) {
+    for (let key in coursesDic) {
+
+        var option = document.createElement("option");
+        option.dataset.value = key;
+        option.innerHTML = coursesDic[key]["name"];
+        if (currentID) {
+            if (studentsDic[currentID]["courses"].includes(key)) {
+                option.selected = true;
+            }
+        }
+
+        DOM.coursesSelect.appendChild(option);
+
+    }
 }
 
 //courses

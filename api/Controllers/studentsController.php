@@ -27,15 +27,22 @@ class studentsController
 
     public function addStudent()
     {
-        $data = $this->model->add_student($_POST['name'], $_POST['phone'], $_POST['email']);
-        if ($data > 0) {
-            $res = $this->model->get_students();
-            echo json_encode($res);
-        } else {
-            echo "error adding" . $_POST['name'];
+
+        $insertId = $this->model->add_student($_POST['name'], $_POST['phone'], $_POST['email']);
+        if (isset($_POST['coursesList'])) {
+            foreach ($_POST['coursesList'] as $course) {
+                $data = $this->model->lnk_student_course($insertId, $course);
+            }
         }
 
+        if ($insertId == null) {
+            http_response_code(304);
+        }
+        $res = $this->model->get_students();
+        echo json_encode($res);
+
     }
+
 
     public function deleteStudent()
     {
@@ -53,34 +60,29 @@ class studentsController
     public function editStudent()
     {
 
+        $affectedRows = 0;
         $data = $this->model->edit_student($_POST['id'], $_POST['name'], $_POST['phone'], $_POST['email']);
-        if ($data != 0) {
-            $res = $this->model->get_students();
-            echo json_encode($res);
-        } else {
-            http_response_code(404);
+        $affectedRows += $data;
+
+        $data = $this->model->delete_courses_lnk($_POST['id']);
+        $affectedRows += $data;
+
+        if (isset($_POST['coursesList'])) {
+            foreach ($_POST['coursesList'] as $course) {
+                $data = $this->model->lnk_student_course($_POST['id'], $course);
+                $affectedRows += $data;
+            }
         }
+
+        if ($affectedRows == 0) {
+            http_response_code(304);
+        }
+
+        $res = $this->model->get_students();
+        echo json_encode($res);
 
     }
 
-    public function LinkStudentCourse()
-    {
-
-        $updateValues = 0;
-        $courseArray = ($_POST["fk_course"]);
-        for ($i=0; $i < count($courseArray); $i++) { 
-            $data = $this->model->lnk_student_course($_POST['fk_student'], $_POST['fk_course'][$i]);    
-            if ($data != 0) {
-                echo $data . "value was updated ";
-            }
-            else{
-                http_response_code(404);
-                break;
-            }
-            
-        }
-
-    }
 
 }
 

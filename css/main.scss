@@ -11,10 +11,13 @@ $fifth-color: #fff7aa;
 #main_nav{
     background-color: $second-color;
 }
+#fileToUpload{
+    font-size: 12px;
+}
 #mainContainer{
     input{
     line-height: 12px;
-    font-size: 12px;
+
     }
     .custom-select{
         line-height: 12px;
@@ -28,7 +31,7 @@ $fifth-color: #fff7aa;
 
     border-right-style: solid;
     border-color: $forth-color;
-    span{
+    i{
 
         font-size: 1.5rem;
     }

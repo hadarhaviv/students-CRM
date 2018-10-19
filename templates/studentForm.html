@@ -2,9 +2,13 @@
     <div class="text-center">
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
         <br>
-        <input type="file" class="text-center center-block file-upload">
+        <form id="IMGForm">
+            <input name="fileToUpload" id="fileToUpload" type="file" class="text-center center-block file-upload"
+                accept="image/png, image/jpeg">
+            <input id="imageUploadFileName" name="filename" type="hidden">
+        </form>
     </div>
-    </hr>
+    <hr>
     <br>
 </div>
 <form class="form col-6" action="#" method="">
@@ -32,5 +36,17 @@
             <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="">
+            <label for="Courses">
+                <h5>Courses</h5>
+            </label>
+            <select id="courses-select" name="courses[]" class="form-control" multiple="multiple">
+
+            </select>
+        </div>
+    </div>
+
     <button class="btn btn-info" id="submit_button" type="button" onclick="" style="display: none">Create</button>
 </form>

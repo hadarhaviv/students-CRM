@@ -16,7 +16,7 @@ define("EDIT_STUDENT", "UPDATE student SET name = ?, phone = ?, email = ? WHERE 
 
 define("STUDENT_LNK_COURSE", "INSERT INTO courses_students_lnk (fk_students, fk_courses) VALUES (?, ?);");
 
-
+define("DELETE_LNK_BY_STUDENT", "DELETE FROM courses_students_lnk WHERE fk_students = ?");
 
 
 // courses

@@ -15,7 +15,7 @@ function getStudentsService(callback) {
     })
 }
 
-function createStudentService(name, email, phone, callback) {
+function createStudentService(name, email, phone, coursesList, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.addStudent,
         method: "POST",
@@ -23,6 +23,7 @@ function createStudentService(name, email, phone, callback) {
             'name': name,
             'email': email,
             'phone': phone,
+            'coursesList': coursesList
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -35,7 +36,7 @@ function createStudentService(name, email, phone, callback) {
     })
 }
 
-function editStudentService(id, name, email, phone, callback) {
+function editStudentService(id, name, email, phone, coursesList, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.studentsController + "&action=" + config.editStudent,
         method: "POST",
@@ -44,6 +45,7 @@ function editStudentService(id, name, email, phone, callback) {
             'name': name,
             'email': email,
             'phone': phone,
+            'coursesList': coursesList
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -293,11 +295,14 @@ function getFormTemplate(param, callback) {
             DOM.registration_form.innerHTML = response;
             DOM.submitBTN = document.getElementById("submit_button");
             DOM.deleteIcon = document.getElementById("deleteIcon");
+            DOM.imageUploadFileName = document.getElementById("imageUploadFileName");
+            DOM.image = document.getElementById("image");
             switch (param) {
                 case "studentForm":
                     DOM.fullName = document.getElementById("full_name");
                     DOM.email = document.getElementById("email");
                     DOM.phone = document.getElementById("phone");
+                    DOM.coursesSelect = document.getElementById("courses-select");
 
                     callback();
                     break;
@@ -306,8 +311,7 @@ function getFormTemplate(param, callback) {
                     DOM.courseName = document.getElementById("course_name");
                     DOM.description = document.getElementById("description");
                     DOM.studentsSelect = document.getElementById("students-select");
-                    DOM.imageUploadFileName = document.getElementById("imageUploadFileName");
-                    DOM.image = document.getElementById("image");
+
                     callback();
                     break;
 
