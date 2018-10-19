@@ -42,11 +42,11 @@ define("LOGIN_ACTION", "SELECT * FROM ADMIN where (user_name = 'p2');");
 // admins
 define("GET_ALL_ADMINS", "SELECT * FROM admin;");
 
-define("ADD_ADMIN", "INSERT INTO admin (name, fk_role, phone, email, password, user_name) VALUES (?, ?, ?, ?, ?, ?);");
+define("ADD_ADMIN", "INSERT INTO admin (name, fk_role, phone, email, image, password, user_name) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
 define("DELETE_ADMIN", "DELETE FROM admin WHERE (id = p1);");
 
-define("EDIT_ADMIN", "UPDATE admin SET name = ?, fk_role = ?, phone = ?, email = ? WHERE (id = ?);
+define("EDIT_ADMIN", "UPDATE admin SET name = ?, fk_role = ?, phone = ?, email = ?, image = ? WHERE (id = ?);
 ");
 
 ?>

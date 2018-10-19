@@ -5,3 +5,4 @@
 9. static nav bar
 10. fix api id - should be int and not str
 12. change URLs in services. (add to config)
+13. handle image size issues

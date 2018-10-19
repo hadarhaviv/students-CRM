@@ -33,9 +33,8 @@ function displayCard(entity, type) {
     card.querySelector("#card-name").innerHTML = entity.name;
     if (type == "student") {
         card.querySelector("#cardP").innerHTML = entity.phone;
-        card.querySelector(".card-image").src = "images/student_icon.png"
+        card.querySelector(".card-image").src = "images/student_icon.png";
         card.addEventListener("click", showStudentDetails)
-
     }
     if (type == "course") {
         card.querySelector("#cardP").innerHTML = entity.description;
@@ -46,6 +45,9 @@ function displayCard(entity, type) {
         card.querySelector("#cardP").innerHTML = entity.phone;
         card.querySelector(".card-image").src = "images/course-icon.png"
         card.addEventListener("click", showAdminDetails)
+    }
+    if (entity.image) {
+        card.querySelector(".card-image").src = "uploads/" + entity.image;
     }
     return card;
 }
@@ -99,6 +101,7 @@ function addStudent() {
         mainC_headline.innerHTML = "New Student";
         DOM.submitBTN.style.display = "inline-block";
         DOM.submitBTN.addEventListener("click", saveStudent)
+        DOM.imageForm.style.display = "inline-block";
         createCoursesSelectDOM(null);
         $('#courses-select').select2();
     });
@@ -109,6 +112,7 @@ function addStudent() {
 function editStudent(currentID) {
     DOM.editIcon.style.display = "none"
     DOM.deleteIcon.style.display = "inline-block"
+    DOM.imageForm.style.display = "inline-block";
     DOM.deleteIcon = cloneElement(DOM.deleteIcon);
     DOM.deleteIcon.addEventListener("click", function () {
         deleteStudent(currentID);
@@ -135,20 +139,26 @@ function deleteStudent(currentID) {
 }
 
 function saveStudent(event, currentID) {
-
+    var filename = "";
     let coursesList = [];
 
     for (let i = 0; i < DOM.coursesSelect.selectedOptions.length; i++) {
         coursesList.push(DOM.coursesSelect.selectedOptions[i].dataset.value);
     }
 
-    var filename = "";
-    if (document.getElementById('fileToUpload').value) {
+
+    if (DOM.fileToUpload.value) {
         filename = randomString() + ".jpg";
         uploadImage(filename);
     }
 
+    else if (currentID) {
+        filename = studentsDic[currentID]["image"];
+    }
+
+
     if (currentID) {
+
         editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback)
     }
     else {
@@ -157,7 +167,7 @@ function saveStudent(event, currentID) {
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
     mainC_headline.innerHTML = "";
-    // clearInput();
+
 }
 
 function createCoursesSelectDOM(currentID) {
@@ -264,12 +274,16 @@ function saveCourse(event, currentID) {
 
     // if image is being uploaded
     var filename = "";
-    if (document.getElementById('fileToUpload').value) {
+
+    if (DOM.fileToUpload.value) {
         filename = randomString() + ".jpg";
         uploadImage(filename);
     }
+    else if (currentID) {
+        filename = coursesDic[currentID]["image"];
+    }
 
-
+    //check if edit or create
     if (currentID) {
         editCourseService(currentID, DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
     }
@@ -294,7 +308,8 @@ function deleteCourse(currentID) {
 
 function editCourse(currentID) {
     DOM.editIcon.style.display = "none"
-    DOM.deleteIcon.style.display = "inline-block"
+    DOM.deleteIcon.style.display = "inline-block";
+    DOM.imageForm.style.display = "inline-block";
     DOM.deleteIcon = cloneElement(DOM.deleteIcon);
     DOM.deleteIcon.addEventListener("click", function () {
         deleteCourse(currentID);
@@ -331,6 +346,9 @@ function addAdmin() {
     getFormTemplate("adminForm", function () {
         mainC_headline.innerHTML = "New Admin";
         DOM.submitBTN.style.display = "inline-block";
+        DOM.imageForm.style.display = "inline-block";
+        DOM.passC.style.display = "inline-block";
+        DOM.uNameC.style.display = "inline-block";
         DOM.submitBTN.addEventListener("click", saveAdmin)
     });
     clearInput();
@@ -362,6 +380,9 @@ function showAdminDetails(event) {
         DOM.password.disabled = true;
         DOM.role.value = adminsDic[currentID].roleID;
         DOM.role.disabled = true;
+        if (adminsDic[currentID].image) {
+            DOM.image.src = "uploads/" + adminsDic[currentID].image;
+        }
 
     });
 
@@ -369,7 +390,8 @@ function showAdminDetails(event) {
 
 function editAdmin(currentID) {
     DOM.editIcon.style.display = "none"
-    DOM.deleteIcon.style.display = "inline-block"
+    DOM.deleteIcon.style.display = "inline-block";
+    DOM.imageForm.style.display = "inline-block";
     DOM.deleteIcon = cloneElement(DOM.deleteIcon);
     DOM.deleteIcon.addEventListener("click", function () {
         deleteAdmin(currentID);
@@ -390,16 +412,25 @@ function editAdmin(currentID) {
 }
 
 function saveAdmin(event, currentID) {
+    var filename = "";
+    if (DOM.fileToUpload.value) {
+        filename = randomString() + ".jpg";
+        uploadImage(filename);
+    }
+    else if (currentID) {
+        filename = adminsDic[currentID]["image"];
+    }
+
     if (currentID) {
-        editAdminService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.role.value, adminsResCallback)
+        editAdminService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.role.value, filename, adminsResCallback);
     }
     else {
-        createAdminService(DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.userName.value, DOM.password.value, DOM.role.value, adminsResCallback);
+        createAdminService(DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.userName.value, DOM.password.value, DOM.role.value, filename, adminsResCallback);
     }
     DOM.registration_form.innerHTML = "";
     DOM.deleteIcon.style.display = "none"
     mainC_headline.innerHTML = "";
-    // clearInput();
+
 }
 
 

@@ -193,7 +193,7 @@ function deleteAdminService(id, callback) {
     })
 }
 
-function editAdminService(id, aName, email, phone, role, callback) {
+function editAdminService(id, aName, email, phone, role, imageFileName, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.adminsController + "&action=" + config.editAdmin,
         method: "POST",
@@ -202,7 +202,8 @@ function editAdminService(id, aName, email, phone, role, callback) {
             'name': aName,
             'phone': phone,
             'email': email,
-            'role': role
+            'role': role,
+            'imageFileName': imageFileName
 
         },
         success: function (res) {
@@ -216,7 +217,7 @@ function editAdminService(id, aName, email, phone, role, callback) {
     })
 }
 
-function createAdminService(aName, email, phone, userName, password, role, callback) {
+function createAdminService(aName, email, phone, userName, password, role, imageFileName, callback) {
     $.ajax({
         url: config.baseUrl + "controller=" + config.adminsController + "&action=" + config.addAdmin,
         method: "POST",
@@ -226,7 +227,8 @@ function createAdminService(aName, email, phone, userName, password, role, callb
             'phone': phone,
             'userName': userName,
             'password': password,
-            'role': role
+            'role': role,
+            'imageFileName': imageFileName
         },
         success: function (res) {
             callback(JSON.parse(res));
@@ -299,6 +301,8 @@ function getFormTemplate(param, callback) {
             DOM.deleteIcon = document.getElementById("deleteIcon");
             DOM.imageUploadFileName = document.getElementById("imageUploadFileName");
             DOM.image = document.getElementById("image");
+            DOM.imageForm = document.getElementById("IMGForm");
+            DOM.fileToUpload = document.getElementById("fileToUpload");
             switch (param) {
                 case "studentForm":
                     DOM.fullName = document.getElementById("full_name");
@@ -323,6 +327,8 @@ function getFormTemplate(param, callback) {
                     DOM.phone = document.getElementById("phone");
                     DOM.userName = document.getElementById("userName");
                     DOM.password = document.getElementById("password");
+                    DOM.uNameC = document.getElementById("uNameC");
+                    DOM.passC = document.getElementById("passC");
                     DOM.role = document.getElementById("role");
                     callback();
                     break;

@@ -17,7 +17,8 @@ class adminsModel extends Model
             $admins[$currentID]["email"] = $data[$i]->email;
             $admins[$currentID]["roleID"] = $data[$i]->fk_role;
             $admins[$currentID]["userName"] = $data[$i]->user_name;
-            $admins[$currentID]["password"] = $data[$i]->password;
+            $admins[$currentID]["image"] = $data[$i]->image;
+            // $admins[$currentID]["password"] = $data[$i]->password;
         }
         if (count($admins) > 0) {
             return $admins;
@@ -27,10 +28,10 @@ class adminsModel extends Model
     }
 
 
-    public function add_admin($aName, $role, $phone, $email, $password, $userName)
+    public function add_admin($aName, $role, $phone, $email, $password, $userName, $imageFilename)
     {
         $stmt = $this->dbc->Prepare(ADD_ADMIN);
-        $stmt->bind_param("sissss", $aName, $role, $phone, $email, $password, $userName);
+        $stmt->bind_param("sisssss", $aName, $role, $phone, $email, $password, $userName, $imageFilename);
         $stmt->execute();
         return $stmt->affected_rows;
     }
@@ -45,11 +46,11 @@ class adminsModel extends Model
     }
 
 
-    public function edit_admin($aName, $fk_role, $phone, $email, $id)
+    public function edit_admin($aName, $fk_role, $phone, $email, $imageFilename, $id)
     {
         $q = EDIT_ADMIN;
         $data = $this->dbc->Prepare($q);
-        $data->bind_param('sissi', $aName, $fk_role, $phone, $email, $id);
+        $data->bind_param('sisssi', $aName, $fk_role, $phone, $email, $imageFilename, $id);
         $data->execute();
         return $data->affected_rows;
 

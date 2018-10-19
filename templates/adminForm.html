@@ -1,8 +1,13 @@
 <div class="col-sm-3 mr-3">
     <div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        <img id="image" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
+            alt="avatar">
         <br>
-        <input type="file" class="text-center center-block file-upload">
+        <form style="display: none" id="IMGForm">
+            <input name="fileToUpload" id="fileToUpload" type="file" class="text-center center-block file-upload"
+                accept="image/png, image/jpeg">
+            <input id="imageUploadFileName" name="filename" type="hidden">
+        </form>
     </div>
     <hr>
     <br>
@@ -43,7 +48,7 @@
             <option value="3">Sales</option>
         </select>
     </div>
-    <div style="display: none" class="form-group">
+    <div id="uNameC" style="display: none" class="form-group">
         <div class="">
             <label for="userName">
                 <h5>User Name</h5>
@@ -51,7 +56,7 @@
             <input type="text" class="form-control" name="userName" id="userName" placeholder="User Name">
         </div>
     </div>
-    <div style="display: none" class="form-group">
+    <div id="passC" style="display: none" class="form-group">
         <div class="">
             <label for="password">
                 <h5>password</h5>

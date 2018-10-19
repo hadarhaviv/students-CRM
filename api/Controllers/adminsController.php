@@ -28,7 +28,7 @@ class adminsController
 
     public function addAdmin()
     {
-        $data = $this->model->add_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], loginController::createHash($_POST['password']), $_POST['userName']);
+        $data = $this->model->add_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['imageFileName'], loginController::createHash($_POST['password']), $_POST['userName']);
         if ($data > 0) {
             $res = $this->model->get_admins();
             echo json_encode($res);
@@ -55,7 +55,7 @@ class adminsController
     public function editAdmin()
     {
 
-        $data = $this->model->edit_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['id']);
+        $data = $this->model->edit_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['imageFileName'], $_POST['id']);
         if ($data != 0) {
             $res = $this->model->get_admins();
             echo json_encode($res);
