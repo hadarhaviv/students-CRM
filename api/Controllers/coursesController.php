@@ -15,11 +15,16 @@ class coursesController
 
     public function getCourses()
     {
-        $res = $this->model->get_courses();
-        if ($res) {
-            echo json_encode($res);
+        if (utilsController::isAuthorized(utilsController::LEVEL_3)) {
+            $res = $this->model->get_courses();
+            if ($res) {
+                echo json_encode($res);
+            } else {
+                echo "no results";
+            }
+
         } else {
-            echo "no results";
+            http_response_code(401);
         }
 
 
@@ -28,25 +33,31 @@ class coursesController
 
     public function addCourse()
     {
-        $insertId = $this->model->add_course($_POST['name'], $_POST['description'], $_POST['imageFileName']);
-        if (isset($_POST['studentsList'])) {
-            foreach ($_POST['studentsList'] as $student) {
-                $data = $this->model->lnk_student_course($student, $insertId);
+        if (utilsController::isAuthorized(utilsController::LEVEL_2)) {
+            $insertId = $this->model->add_course($_POST['name'], $_POST['description'], $_POST['imageFileName']);
+            if (isset($_POST['studentsList'])) {
+                foreach ($_POST['studentsList'] as $student) {
+                    $data = $this->model->lnk_student_course($student, $insertId);
+                }
             }
-        }
 
 
-        if ($insertId == null) {
-            http_response_code(304);
+            if ($insertId == null) {
+                http_response_code(304);
+            }
+            $res = $this->model->get_courses();
+            echo json_encode($res);
+
+        } else {
+            http_response_code(401);
         }
-        $res = $this->model->get_courses();
-        echo json_encode($res);
+
 
     }
 
     public function deleteCourse()
     {
-        if (isset($_SESSION["currentUser"]->isLoggedIn) && !(($_SESSION["currentUser"]->role) == 3)) {
+        if (utilsController::isAuthorized(utilsController::LEVEL_2)) {
             $data = $this->model->delete_course($_POST['id']);
             if ($data != 0) {
                 $res = $this->model->get_courses();
@@ -62,7 +73,7 @@ class coursesController
 
     public function editCourse()
     {
-        if (isset($_SESSION["currentUser"]->isLoggedIn) && !(($_SESSION["currentUser"]->role) == 3)) {
+        if (utilsController::isAuthorized(utilsController::LEVEL_2)) {
 
             $affectedRows = 0;
             $data = $this->model->edit_course($_POST['id'], $_POST['name'], $_POST['desc'], $_POST['imageFileName']);
