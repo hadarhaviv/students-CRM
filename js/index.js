@@ -3,6 +3,13 @@ window.onload = function () {
 }
 
 function init() {
-    router.home();
+    checkLogin(function (res) {
+        if (!res) {
+            window.location.href = "Login.html";
+        }
+        else {
+            router.home();
+        }
+    })
 }
 

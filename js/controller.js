@@ -254,6 +254,7 @@ function addCourse() {
     getFormTemplate("courseForm", function () {
         mainC_headline.innerHTML = "New Course";
         DOM.submitBTN.style.display = "inline-block";
+        DOM.imageForm.style.display = "inline-block";
         DOM.submitBTN.addEventListener("click", saveCourse)
         createStudentsSelectDOM(null);
         $('#students-select').select2();

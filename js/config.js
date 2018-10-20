@@ -29,7 +29,8 @@ var DOM = function () {
         form_Headline: document.getElementById("form_Headline"),
         registration_form: document.getElementById("registration_form"),
         mainC_headline: document.getElementById("mainC_headline"),
-        editIcon: document.getElementById("editIcon")
+        editIcon: document.getElementById("editIcon"),
+        userNav: document.getElementById("userNav"),
 
 
 

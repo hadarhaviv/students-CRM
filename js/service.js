@@ -341,5 +341,67 @@ function getFormTemplate(param, callback) {
     })
 }
 
+//Login
 
+function login() {
+    var uName = document.getElementById("username");
+    var pass = document.getElementById("password");
+    var error = document.getElementById("error");
+    if (pass.value != "" && uName.value != "") {
+        $.ajax({
+            method: "POST",
+            url: 'http://localhost/studentsAdmin/api/index.php?controller=login&action=login',
+            data: {
+                "userName": uName.value,
+                "password": pass.value
+            },
+            success: function (res) {
+                window.location.href = "main.html";
+
+            },
+            error: function (res) {
+                error.innerHTML = "User Name or Password are incorrect!";
+                error.style.display = "inline-block";
+
+            }
+
+        })
+
+    }
+    else {
+        error.innerHTML = "please fill all required fields"
+        error.style.display = "inline-block";
+    }
+
+
+}
+
+function checkLogin(callback) {
+    $.ajax({
+        method: "GET",
+        url: 'http://localhost/studentsAdmin/api/index.php?controller=login&action=checkLogin',
+        success: function (res) {
+            callback(JSON.parse(res));
+        },
+        error: function (res) {
+            alert("Please Login first!");
+            callback(false);
+        }
+
+    })
+}
+
+function logout() {
+    $.ajax({
+        method: "GET",
+        url: 'http://localhost/studentsAdmin/api/index.php?controller=login&action=logout',
+        success: function (res) {
+            window.location.href = "Login.html";
+        },
+        error: function (res) {
+
+        }
+
+    })
+}
 

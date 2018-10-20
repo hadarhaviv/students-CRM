@@ -23,6 +23,20 @@ class loginController
 
     }
 
+    public function checkLogin()
+    {
+        if (isset($_SESSION)) {
+            if (isset($_SESSION["currentUser"]->isLoggedIn)) {
+                echo json_encode($_SESSION);
+            } else {
+                http_response_code(401);
+            }
+        } else {
+            http_response_code(401);
+        }
+
+    }
+
     public function logout()
     {
         session_unset();
