@@ -31,6 +31,7 @@ var DOM = function () {
         mainC_headline: document.getElementById("mainC_headline"),
         editIcon: document.getElementById("editIcon"),
         userNav: document.getElementById("userNav"),
+        adminTab: document.getElementById("adminTab"),
 
 
 

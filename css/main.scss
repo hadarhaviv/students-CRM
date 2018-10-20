@@ -14,6 +14,17 @@ $fifth-color: #fff7aa;
 #fileToUpload{
     font-size: 12px;
 }
+
+.form-inline{
+    a{
+        color: white !important;
+        &:hover {
+            cursor: pointer; 
+        }
+    }
+ 
+
+}
 #mainContainer{
     input{
     line-height: 12px;

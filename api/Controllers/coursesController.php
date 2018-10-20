@@ -1,6 +1,7 @@
 <?php
 
 require_once("./models/coursesModel.php");
+require_once("utilsController.php");
 class coursesController
 {
 
@@ -45,39 +46,49 @@ class coursesController
 
     public function deleteCourse()
     {
-
-        $data = $this->model->delete_course($_POST['id']);
-        if ($data != 0) {
-            $res = $this->model->get_courses();
-            echo json_encode($res);
+        if (isset($_SESSION["currentUser"]->isLoggedIn) && !(($_SESSION["currentUser"]->role) == 3)) {
+            $data = $this->model->delete_course($_POST['id']);
+            if ($data != 0) {
+                $res = $this->model->get_courses();
+                echo json_encode($res);
+            } else {
+                http_response_code(404);
+            }
         } else {
-            http_response_code(404);
+            http_response_code(401);
         }
 
     }
 
     public function editCourse()
     {
-        $affectedRows = 0;
-        $data = $this->model->edit_course($_POST['id'], $_POST['name'], $_POST['desc'], $_POST['imageFileName']);
-        $affectedRows += $data;
+        if (isset($_SESSION["currentUser"]->isLoggedIn) && !(($_SESSION["currentUser"]->role) == 3)) {
 
-        $data = $this->model->delete_students_lnk($_POST['id']);
-        $affectedRows += $data;
+            $affectedRows = 0;
+            $data = $this->model->edit_course($_POST['id'], $_POST['name'], $_POST['desc'], $_POST['imageFileName']);
+            $affectedRows += $data;
 
-        if (isset($_POST['studentsList'])) {
-            foreach ($_POST['studentsList'] as $student) {
-                $data = $this->model->lnk_student_course($student, $_POST['id']);
-                $affectedRows += $data;
+            $data = $this->model->delete_students_lnk($_POST['id']);
+            $affectedRows += $data;
+
+            if (isset($_POST['studentsList'])) {
+                foreach ($_POST['studentsList'] as $student) {
+                    $data = $this->model->lnk_student_course($student, $_POST['id']);
+                    $affectedRows += $data;
+                }
             }
+
+            if ($affectedRows == 0) {
+                http_response_code(304);
+            }
+
+            $res = $this->model->get_courses();
+            echo json_encode($res);
+        } else {
+            http_response_code(401);
         }
 
-        if ($affectedRows == 0) {
-            http_response_code(304);
-        }
 
-        $res = $this->model->get_courses();
-        echo json_encode($res);
 
     }
 }

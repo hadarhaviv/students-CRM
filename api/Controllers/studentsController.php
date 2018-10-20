@@ -14,13 +14,16 @@ class studentsController
 
     public function getStudents()
     {
-        $res = $this->model->get_students();
-        if ($res) {
-            echo json_encode($res);
+        if (isset($_SESSION["currentUser"]->isLoggedIn)) {
+            $res = $this->model->get_students();
+            if (count($res) > 0) {
+                echo json_encode($res);
+            } else {
+                echo "no results";
+            }
         } else {
-            echo "no results";
+            http_response_code(401);
         }
-
 
     }
 

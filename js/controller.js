@@ -227,11 +227,18 @@ function showCourseDetails(event) {
     var currentID = event.currentTarget.id;
     getFormTemplate("courseForm", function () {
         mainC_headline.innerHTML = "Course Details";
-        DOM.editIcon.style.display = "inline-block";
-        DOM.editIcon = cloneElement(DOM.editIcon);
-        DOM.editIcon.addEventListener("click", function () {
-            editCourse(currentID);
-        })
+
+        if (!(userDetails.role == 3)) {
+            DOM.editIcon.style.display = "inline-block";
+            DOM.editIcon = cloneElement(DOM.editIcon);
+            DOM.editIcon.addEventListener("click", function () {
+                editCourse(currentID);
+            })
+        }
+        else {
+            DOM.editIcon.style.display = "none";
+        }
+
         DOM.courseName.value = coursesDic[currentID].name;
         DOM.courseName.disabled = true;
         DOM.description.value = coursesDic[currentID].description;

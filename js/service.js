@@ -344,6 +344,9 @@ function getFormTemplate(param, callback) {
 //Login
 
 function login() {
+
+    var loader = document.getElementById("loader");
+    loader.style.display = "inline-block";
     var uName = document.getElementById("username");
     var pass = document.getElementById("password");
     var error = document.getElementById("error");
@@ -360,6 +363,7 @@ function login() {
 
             },
             error: function (res) {
+                loader.style.display = "none";
                 error.innerHTML = "User Name or Password are incorrect!";
                 error.style.display = "inline-block";
 
@@ -371,6 +375,7 @@ function login() {
     else {
         error.innerHTML = "please fill all required fields"
         error.style.display = "inline-block";
+        loader.style.display = "none";
     }
 
 

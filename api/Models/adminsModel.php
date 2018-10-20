@@ -5,10 +5,14 @@ class adminsModel extends Model
 {
 
 
-    public function get_admins()
+    public function get_admins($owner)
     {
         $admins = array();
-        $data = $this->dbc->Select(GET_ALL_ADMINS);
+        if ($owner) {
+            $data = $this->dbc->Select(GET_ALL_ADMINS);
+        } else {
+            $data = $this->dbc->Select(GET_ADMINS_NO_OWNER);
+        }
         for ($i = 0; $i < count($data); $i++) {
             $currentID = $data[$i]->id;
             $admins[$currentID]["id"] = $data[$i]->id;
@@ -18,7 +22,7 @@ class adminsModel extends Model
             $admins[$currentID]["roleID"] = $data[$i]->fk_role;
             $admins[$currentID]["userName"] = $data[$i]->user_name;
             $admins[$currentID]["image"] = $data[$i]->image;
-            // $admins[$currentID]["password"] = $data[$i]->password;
+
         }
         if (count($admins) > 0) {
             return $admins;

@@ -10,6 +10,14 @@
   font-size: 12px;
 }
 
+.form-inline a {
+  color: white !important;
+}
+
+.form-inline a:hover {
+  cursor: pointer;
+}
+
 #mainContainer input {
   line-height: 12px;
 }

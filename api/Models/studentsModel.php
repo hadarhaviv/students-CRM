@@ -23,13 +23,8 @@ class studentsModel extends Model
             if (isset($data[$i]->course_id)) {
                 $students[$currentID]["courses"][] = $data[$i]->course_id;
             }
-
         }
-        if (count($students) > 0) {
-            return $students;
-        } else {
-            return false;
-        }
+        return $students;
     }
 
     public function add_student($sName, $phone, $email, $imageFilename)

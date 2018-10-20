@@ -2,6 +2,7 @@
 
 require_once("./models/adminsModel.php");
 require_once("loginController.php");
+require_once("utilsController.php");
 class adminsController
 {
 
@@ -13,27 +14,40 @@ class adminsController
 
     }
 
+
     public function getAdmins()
     {
-        $res = $this->model->get_admins();
-        if ($res) {
-            echo json_encode($res);
-        } else {
-            echo "no results";
-        }
+        if (utilsController::isAuthorized(utilsController::LEVEL_2)) {
 
+            $res = $this->model->get_admins(utilsController::isAuthorized(utilsController::LEVEL_1));
+            if ($res) {
+                echo json_encode($res);
+            } else {
+                echo "no results";
+            }
+
+        } else {
+            http_response_code(401);
+        }
 
     }
 
 
     public function addAdmin()
     {
-        $data = $this->model->add_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['imageFileName'], loginController::createHash($_POST['password']), $_POST['userName']);
-        if ($data > 0) {
-            $res = $this->model->get_admins();
-            echo json_encode($res);
+        if (utilsController::isAuthorized(utilsController::LEVEL_2)) {
+            if (!($_POST['role'] == 1 && $_SESSION["currentUser"]->role == 2)) {
+                $data = $this->model->add_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['imageFileName'], loginController::createHash($_POST['password']), $_POST['userName']);
+                if ($data > 0) {
+                    $res = $this->model->get_admins(utilsController::isAuthorized(utilsController::LEVEL_1));
+                    echo json_encode($res);
+                } else {
+                    echo "error adding" . $_POST['name'];
+                }
+            }
+
         } else {
-            echo "error adding" . $_POST['name'];
+            http_response_code(401);
         }
 
     }
@@ -43,7 +57,7 @@ class adminsController
 
         $data = $this->model->delete_admin($_POST['id']);
         if ($data != 0) {
-            $res = $this->model->get_admins();
+            $res = $this->model->get_admins(utilsController::isAuthorized(utilsController::LEVEL_1));
             echo json_encode($res);
         } else {
             http_response_code(404);
@@ -54,17 +68,19 @@ class adminsController
 
     public function editAdmin()
     {
+        if (utilsController::isAuthorized(utilsController::LEVEL_2)) {
+            if (!($_POST['role'] == 1 && $_SESSION["currentUser"]->role == 2)) {
+                $data = $this->model->edit_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['imageFileName'], $_POST['id']);
+                if ($data != 0) {
+                    $res = $this->model->get_admins(utilsController::isAuthorized(utilsController::LEVEL_1));
+                    echo json_encode($res);
+                } else {
+                    http_response_code(404);
+                }
+            }
 
-        $data = $this->model->edit_admin($_POST['name'], $_POST['role'], $_POST['phone'], $_POST['email'], $_POST['imageFileName'], $_POST['id']);
-        if ($data != 0) {
-            $res = $this->model->get_admins();
-            echo json_encode($res);
-        } else {
-            http_response_code(404);
         }
-
     }
-
 }
 
 

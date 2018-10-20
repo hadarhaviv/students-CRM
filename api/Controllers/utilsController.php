@@ -5,6 +5,15 @@ define('SITE_ROOT', realpath(dirname(dirname(dirname(__FILE__)))));
 
 class utilsController
 {
+    const LEVEL_1 = 1;
+    const LEVEL_2 = 2;
+    const LEVEL_3 = 3;
+
+    public static function isAuthorized($level)
+    {
+        return isset($_SESSION["currentUser"]->isLoggedIn) && (($_SESSION["currentUser"]->role) <= $level);
+    }
+
 
     public function uploadImage()
     {
@@ -17,4 +26,6 @@ class utilsController
             echo "Sorry, there was an error uploading your file.";
         }
     }
+
+
 }

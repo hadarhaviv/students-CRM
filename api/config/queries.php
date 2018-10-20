@@ -42,6 +42,8 @@ define("LOGIN_ACTION", "SELECT * FROM ADMIN where (user_name = 'p2');");
 // admins
 define("GET_ALL_ADMINS", "SELECT * FROM admin;");
 
+define("GET_ADMINS_NO_OWNER", "SELECT * FROM admin where (fk_role > 1)");
+
 define("ADD_ADMIN", "INSERT INTO admin (name, fk_role, phone, email, image, password, user_name) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
 define("DELETE_ADMIN", "DELETE FROM admin WHERE (id = p1);");
