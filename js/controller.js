@@ -3,6 +3,21 @@ var studentsDic;
 var coursesDic;
 var adminsDic;
 
+function validateForm() {
+    let inputs = $(".form-group").find("input");
+    let emptyInput = 0
+    inputs.each(function (index) {
+        if ($(this).val() == "" && !($(this).hasClass("select2-search__field"))) {
+            DOM.formError.style.display = "inline-block";
+            ++emptyInput;
+        }
+    });
+    if (emptyInput > 0) {
+        return false;
+    }
+    else { return true };
+}
+
 function randomString() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -139,34 +154,37 @@ function deleteStudent(currentID) {
 }
 
 function saveStudent(event, currentID) {
-    var filename = "";
-    let coursesList = [];
+    if (validateForm()) {
+        var filename = "";
+        let coursesList = [];
 
-    for (let i = 0; i < DOM.coursesSelect.selectedOptions.length; i++) {
-        coursesList.push(DOM.coursesSelect.selectedOptions[i].dataset.value);
+        for (let i = 0; i < DOM.coursesSelect.selectedOptions.length; i++) {
+            coursesList.push(DOM.coursesSelect.selectedOptions[i].dataset.value);
+        }
+
+
+        if (DOM.fileToUpload.value) {
+            filename = randomString() + ".jpg";
+            uploadImage(filename);
+        }
+
+        else if (currentID) {
+            filename = studentsDic[currentID]["image"];
+        }
+
+
+        if (currentID) {
+
+            editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback)
+        }
+        else {
+            createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback);
+        }
+        DOM.registration_form.innerHTML = "";
+        DOM.deleteIcon.style.display = "none"
+        mainC_headline.innerHTML = "";
+
     }
-
-
-    if (DOM.fileToUpload.value) {
-        filename = randomString() + ".jpg";
-        uploadImage(filename);
-    }
-
-    else if (currentID) {
-        filename = studentsDic[currentID]["image"];
-    }
-
-
-    if (currentID) {
-
-        editStudentService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback)
-    }
-    else {
-        createStudentService(DOM.fullName.value, DOM.email.value, DOM.phone.value, coursesList, filename, studentResCallback);
-    }
-    DOM.registration_form.innerHTML = "";
-    DOM.deleteIcon.style.display = "none"
-    mainC_headline.innerHTML = "";
 
 }
 
@@ -273,36 +291,38 @@ function addCourse() {
 }
 
 function saveCourse(event, currentID) {
+    if (validateForm()) {
+        let studentsList = [];
 
-    let studentsList = [];
+        for (let i = 0; i < DOM.studentsSelect.selectedOptions.length; i++) {
+            studentsList.push(DOM.studentsSelect.selectedOptions[i].dataset.value);
+        }
 
-    for (let i = 0; i < DOM.studentsSelect.selectedOptions.length; i++) {
-        studentsList.push(DOM.studentsSelect.selectedOptions[i].dataset.value);
+        // if image is being uploaded
+        var filename = "";
+
+        if (DOM.fileToUpload.value) {
+            filename = randomString() + ".jpg";
+            uploadImage(filename);
+        }
+        else if (currentID) {
+            filename = coursesDic[currentID]["image"];
+        }
+
+        //check if edit or create
+        if (currentID) {
+            editCourseService(currentID, DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
+        }
+        else {
+            createCourseService(DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
+        }
+
+
+        DOM.registration_form.innerHTML = "";
+        DOM.deleteIcon.style.display = "none"
+        mainC_headline.innerHTML = "";
     }
 
-    // if image is being uploaded
-    var filename = "";
-
-    if (DOM.fileToUpload.value) {
-        filename = randomString() + ".jpg";
-        uploadImage(filename);
-    }
-    else if (currentID) {
-        filename = coursesDic[currentID]["image"];
-    }
-
-    //check if edit or create
-    if (currentID) {
-        editCourseService(currentID, DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
-    }
-    else {
-        createCourseService(DOM.courseName.value, DOM.description.value, studentsList, filename, coursesResCallback);
-    }
-
-
-    DOM.registration_form.innerHTML = "";
-    DOM.deleteIcon.style.display = "none"
-    mainC_headline.innerHTML = "";
 }
 
 
@@ -420,24 +440,27 @@ function editAdmin(currentID) {
 }
 
 function saveAdmin(event, currentID) {
-    var filename = "";
-    if (DOM.fileToUpload.value) {
-        filename = randomString() + ".jpg";
-        uploadImage(filename);
-    }
-    else if (currentID) {
-        filename = adminsDic[currentID]["image"];
-    }
+    if (validateForm()) {
+        var filename = "";
+        if (DOM.fileToUpload.value) {
+            filename = randomString() + ".jpg";
+            uploadImage(filename);
+        }
+        else if (currentID) {
+            filename = adminsDic[currentID]["image"];
+        }
 
-    if (currentID) {
-        editAdminService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.role.value, filename, adminsResCallback);
+        if (currentID) {
+            editAdminService(currentID, DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.role.value, filename, adminsResCallback);
+        }
+        else {
+            createAdminService(DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.userName.value, DOM.password.value, DOM.role.value, filename, adminsResCallback);
+        }
+        DOM.registration_form.innerHTML = "";
+        DOM.deleteIcon.style.display = "none"
+        mainC_headline.innerHTML = "";
+
     }
-    else {
-        createAdminService(DOM.fullName.value, DOM.email.value, DOM.phone.value, DOM.userName.value, DOM.password.value, DOM.role.value, filename, adminsResCallback);
-    }
-    DOM.registration_form.innerHTML = "";
-    DOM.deleteIcon.style.display = "none"
-    mainC_headline.innerHTML = "";
 
 }
 

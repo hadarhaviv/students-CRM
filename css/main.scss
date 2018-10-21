@@ -28,6 +28,10 @@ $fifth-color: #fff7aa;
 #mainContainer{
     input{
     line-height: 12px;
+    }
+    #formError{
+        color: red;
+        display: none;
 
     }
     .custom-select{
@@ -100,6 +104,7 @@ $fifth-color: #fff7aa;
 #deleteIcon{
     margin: auto;
 } 
+
 
 
 

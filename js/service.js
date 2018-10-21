@@ -303,6 +303,7 @@ function getFormTemplate(param, callback) {
             DOM.image = document.getElementById("image");
             DOM.imageForm = document.getElementById("IMGForm");
             DOM.fileToUpload = document.getElementById("fileToUpload");
+            DOM.formError = document.getElementById("formError");
             switch (param) {
                 case "studentForm":
                     DOM.fullName = document.getElementById("full_name");

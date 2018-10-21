@@ -22,6 +22,11 @@
   line-height: 12px;
 }
 
+#mainContainer #formError {
+  color: red;
+  display: none;
+}
+
 #mainContainer .custom-select {
   line-height: 12px;
   font-size: 12px;

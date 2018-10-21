@@ -1,6 +1,5 @@
-1. actions authentications.
-6. delete fk issue
-7. error handeling
+
+
 8.forms validation
 9. static nav bar
 10. fix api id - should be int and not str
