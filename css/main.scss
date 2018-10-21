@@ -4,6 +4,9 @@ $third-color: #00c0ef;
 $forth-color: #f0f0f0d5;
 $fifth-color: #fff7aa;
 
+body{
+    background-image: url("../images/background.jpg")
+}
 #mainScreen{
     margin-top: 10px;
 }
@@ -47,8 +50,13 @@ $fifth-color: #fff7aa;
     border-right-style: solid;
     border-color: $forth-color;
     i{
-
+        color: $first-color;
         font-size: 1.5rem;
+
+        &:hover{
+            
+            transform: skew(-10deg);
+        }
     }
 
 

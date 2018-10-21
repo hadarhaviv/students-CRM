@@ -8,6 +8,7 @@ function validateForm() {
     let emptyInput = 0
     inputs.each(function (index) {
         if ($(this).val() == "" && !($(this).hasClass("select2-search__field"))) {
+            $(this).effect("bounce", "slow");
             DOM.formError.style.display = "inline-block";
             ++emptyInput;
         }
