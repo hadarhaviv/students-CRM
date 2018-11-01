@@ -1,0 +1,688 @@
+{
+	"info": {
+		"_postman_id": "c5047a8c-ddb8-468d-9855-f2d7a0763d39",
+		"name": "CRM students",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Add Student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hadar",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hadar.hav",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "coursesList",
+									"type": "text"
+								},
+								{
+									"key": "imageFileName",
+									"value": "imageFileName",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=students&action=addStudent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "students"
+								},
+								{
+									"key": "action",
+									"value": "addStudent"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=students&action=deleteStudent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "students"
+								},
+								{
+									"key": "action",
+									"value": "deleteStudent"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "hadar",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hj",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "66",
+									"type": "text"
+								},
+								{
+									"key": "courseList",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "imageFileName",
+									"value": "blabla.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=students&action=editStudent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "students"
+								},
+								{
+									"key": "action",
+									"value": "editStudent"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=students&action=getStudents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "students"
+								},
+								{
+									"key": "action",
+									"value": "getStudents"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userName",
+									"value": "hadar",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "hadar",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=login&action=login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "login"
+								},
+								{
+									"key": "action",
+									"value": "login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=login&action=checkLogin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "login"
+								},
+								{
+									"key": "action",
+									"value": "checkLogin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "courses",
+			"item": [
+				{
+					"name": "get courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=courses&action=getCourses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "courses"
+								},
+								{
+									"key": "action",
+									"value": "getCourses"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "js",
+									"type": "text"
+								},
+								{
+									"key": "desc",
+									"value": "bla bla",
+									"type": "text"
+								},
+								{
+									"key": "studentsList",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "imageFileName",
+									"value": "blabla.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=courses&action=editCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "courses"
+								},
+								{
+									"key": "action",
+									"value": "editCourse"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=courses&action=deleteCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "courses"
+								},
+								{
+									"key": "action",
+									"value": "deleteCourse"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "java",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "blabla",
+									"type": "text"
+								},
+								{
+									"key": "studentsList",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "imageFileName",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/studentsAdmin/api/index.php?controller=courses&action=addCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"studentsAdmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "courses"
+								},
+								{
+									"key": "action",
+									"value": "addCourse"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/studentsadmin/api/index.php?controller=admins&action=getAdmins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"studentsadmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "admins"
+								},
+								{
+									"key": "action",
+									"value": "getAdmins"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/studentsadmin/api/index.php?controller=admins&action=deleteAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"studentsadmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "admins"
+								},
+								{
+									"key": "action",
+									"value": "deleteAdmin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "666",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@gmail",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "imageFileName",
+									"value": "test.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/studentsadmin/api/index.php?controller=admins&action=editAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"studentsadmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "admins"
+								},
+								{
+									"key": "action",
+									"value": "editAdmin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "4",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "666",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@gmail",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "imageFileName",
+									"value": "test.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/studentsadmin/api/index.php?controller=admins&action=addAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"studentsadmin",
+								"api",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "controller",
+									"value": "admins"
+								},
+								{
+									"key": "action",
+									"value": "addAdmin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

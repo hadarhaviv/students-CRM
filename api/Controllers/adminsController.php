@@ -11,7 +11,7 @@ class adminsController
     public function __construct()
     {
         $this->model = new adminsModel();
-
+        
     }
 
 
